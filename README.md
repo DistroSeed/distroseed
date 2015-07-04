@@ -1,7 +1,7 @@
 # DistroSeed-Dashboard
 DistroSeed is an automated assistant for finding, downloading, and managing Linux Distributions through the Transmission torrent application.
 
-## Major Features Include: ##
+### Major Features Include: ###
 * Highly limited supported on specific distros for now.
 * PlaceHolder.
 
