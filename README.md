@@ -11,7 +11,7 @@ DistroSeed is an automated assistant for finding, downloading, and managing Linu
 * PlaceHolder.
 
 ### Development ###
-* PlaceHolder.
+* Interface Preview: https://i.imgur.com/NvzCaLc.png.
 
 ### Contributions ###
 Co founded by Ian Norden and Leon Denard.
