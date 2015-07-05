@@ -839,6 +839,7 @@ div[data-role="editor-toolbar"] {
     padding: 8px;
     background: none;
     margin-right: 0;
+    display: inline-block;
 }
 .top-nav ul.top-menu > li {
     margin-left: 10px;
