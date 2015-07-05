@@ -3,12 +3,12 @@ DistroSeed is an automated assistant for finding, downloading, and managing Linu
 
 ### Major Features Include: ###
 * Great looking dashboard and management interface.
-* Automated handling of linux distributions leveraging DistroWatch information.
+* Automated handling of Linux distributions leveraging DistroWatch tracking information.
 * Management of bandwidth allocations, storage limiters, and auto pruning of old torrents.
 * Feel good for supporting Linux distribution efforts.
 
 ### Setup ###
-* PlaceHolder.
+* Not much to see here currently.
 
 ### Development ###
 * Interface Preview: https://i.imgur.com/NvzCaLc.png.
