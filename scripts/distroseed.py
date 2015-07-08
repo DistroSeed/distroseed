@@ -104,7 +104,7 @@ def purgeall(ip='127.0.0.1',port=9091,purge_data=False):
         currentlist.append(tobject.hashString)
 
     # See if transmission has any torrents in it
-    if len(currentlist) < 0:
+    if len(currentlist)==0 or currentlist is None:
         return True
 
     # remove all the torrents and their data
