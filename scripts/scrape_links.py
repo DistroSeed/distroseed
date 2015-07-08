@@ -3,6 +3,7 @@
 from distroseed import scraptorrentlink
 
 url = "http://distrowatch.com/index.php?distribution=all&release=all&month=all&year=2015"
-success,fails = scraptorrentlink(url)
+success,failures,blacklist = scraptorrentlink(url)
 print success
-print fails
+print failures
+print blacklist

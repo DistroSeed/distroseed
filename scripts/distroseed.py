@@ -5,43 +5,35 @@ import re
 import requests
 import subprocess
 import BeautifulSoup
+import transmissionrpc
 
-def scraptorrentlink(url):
+def scraptorrentlink(url,ip='127.0.0.1',port=9091):
     # example usage
     # url = "http://distrowatch.com/index.php?distribution=all&release=all&month=all&year=2015"
-    # success,fails = scraptorrentlink(url)
+    # success,failures,blacklist = scraptorrentlink(url)
 
     pagelinks = []
-    template_dicts = []
-    current_torrents = []
     downloadlist = []
+    currentlist = []
     blacklist = []
     successful = []
+    failures = []
 
+    # Pull blacklist file into blacklist variable
     with open(os.getcwd() + '/blacklist.txt') as f:
         blacklist = f.read().splitlines()
 
-    cmd = 'transmission-remote -l'
-    p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, close_fds=True)
-    text_table = p.stdout.read()
+    # Setup transmission connection
+    tc = transmissionrpc.Client(ip, port=port)
 
-    row_splitter = re.compile("  +")
-    rows = text_table.split('\n')
-    headings_row = rows[0]
-    headings = row_splitter.split(headings_row)
-    sum_row = rows[-2]
-    rows.pop(0)
-    rows.pop()
-    rows.pop()
+    # Get list of current torrents in transmission
+    current_torrents = tc.get_torrents()
 
-    for row in rows:
-        values = row_splitter.split(row)
-        template_dict = dict(zip(headings, values))
-        template_dicts.append(template_dict)
+    # Turn torrent objects into a name list
+    for tobject in current_torrents:
+        currentlist.append(tobject.name)
 
-    for dic in template_dicts:
-        current_torrents.append(re.sub('.iso$', '', dic['Name'].lower()))
-
+    # Scrap torrents off link provided
     response = requests.get(url)
     page = str(BeautifulSoup.BeautifulSoup(response.content))
     start_link = page.find("a href")
@@ -69,22 +61,57 @@ def scraptorrentlink(url):
 
     # make sure we don't already have the torrent
     for url in links:
+        # strip the link down to the filename
         file_name = re.sub('.torrent$', '', url.split('/')[-1]).lower()
+        # strip the .iso extention
         file_name = re.sub('.iso$', '', file_name)
-        if file_name not in current_torrents and url not in blacklist:
+        # see if the file is currently in tranmission or blacklisted
+        if file_name not in currentlist and url not in blacklist:
             downloadlist.append(url)
 
+    # looping through the downloadlist to add to transmission
     for link in downloadlist:
-        command = subprocess.call(["transmission-remote", "--add", link, "--stop"], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-        if command == 0:
-            # print "Added %s to Transmission ..." % link
+        try:
+            # add torrent link to transmission
+            tc.add_torrent(link)
+            # add link to successful list if doesnt fail
             successful.append(link)
-        else:
+        except:
+            # if url adding to transmission fails, blacklist it
             blacklist.append(link)
-            # print "Failed %s ... blacklisting" % link
+            # add to failures list to return
+            failures.append(link)
+
     # writing blacklist to file
     with open(os.getcwd() + '/blacklist.txt', 'w') as f:
         f.write('\n'.join(blacklist))
-    return successful,blacklist
+    # return lists of what was successful and what failed and whats blacklisted
+    return successful,failures,blacklist
 
 
+def purgeall(ip='127.0.0.1',port=9091,purge_data=False):
+
+    currentlist = []
+
+    # Setup transmission connection
+    tc = transmissionrpc.Client(ip, port=port)
+
+    # Get list of current torrents in transmission
+    current_torrents = tc.get_torrents()
+    
+    # Turn torrent objects into a name list
+    for tobject in current_torrents:
+        currentlist.append(tobject.hashString)
+
+    # See if transmission has any torrents in it
+    if len(currentlist) < 0:
+        return True
+
+    # remove all the torrents and their data
+    try:
+        tc.remove_torrent(currentlist,delete_data=purge_data)
+        return True
+    except:
+        return False
+
+# def torrentstatus(torrent,ip='127.0.0.1',port=9091):
