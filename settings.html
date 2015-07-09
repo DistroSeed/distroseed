@@ -38,7 +38,6 @@
 </head>
 
 <body>
-  <!-- container section start -->
   <!-- header section start -->
   <section id="container" class="">
 
@@ -62,21 +61,20 @@
               <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
-              <div class="log-arrow-up"></div>
               <li class="eborder-top">
-                <a href="#"><i class="fa fa-home"></i> Home</a>
+                <a href="index.html"><i class="fa fa-home"></i> Home</a>
               </li>
               <li>
-                <a href="#"><i class="fa fa-plus"></i> Add Distro</a>
+                <a href="newdistro.html"><i class="fa fa-plus"></i> Add Distro</a>
               </li>
               <li>
-                <a href="#"><i class="fa fa-history"></i> Timeline</a>
+                <a href="timeline.html"><i class="fa fa-history"></i> Timeline</a>
               </li>
               <li>
-                <a href="#"><i class="fa fa-cogs"></i> Settings</a>
+                <a href="settings.html"><i class="fa fa-cogs"></i> Settings</a>
               </li>
               <li>
-                <a href="#"><i class="fa fa-book"></i> Logs</a>
+                <a href="logs.html"><i class="fa fa-book"></i> Logs</a>
               </li>
               <li>
                 <a href="https://github.com/DistroSeed/DistroSeed-Dashboard/wiki"><i class="fa fa-life-ring"></i> Wiki</a>
@@ -113,35 +111,44 @@
       </div>
       <!--tab nav start-->
       <section class="panel">
-          <header class="panel-heading tab-bg-primary ">
-              <ul class="nav nav-tabs">
-                  <li class="active">
-                      <a data-toggle="tab" href="#home">Home</a>
-                  </li>
-                  <li class="">
-                      <a data-toggle="tab" href="#about">About</a>
-                  </li>
-                  <li class="">
-                      <a data-toggle="tab" href="#profile">Profile</a>
-                  </li>
-                  <li class="">
-                      <a data-toggle="tab" href="#contact">Contact</a>
-                  </li>
-              </ul>
-          </header>
-          <div class="panel-body">
-              <div class="tab-content">
-                  <div id="home" class="tab-pane active">Home</div>
-                  <div id="about" class="tab-pane">About</div>
-                  <div id="profile" class="tab-pane">Profile</div>
-                  <div id="contact" class="tab-pane">Contact</div>
-              </div>
+        <header class="panel-heading tab-bg-primary ">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a data-toggle="tab" href="#torrent">Seed Control</a>
+            </li>
+            <li class="">
+              <a data-toggle="tab" href="#storage">Storage</a>
+            </li>
+            <li class="">
+              <a data-toggle="tab" href="#bandwidth">Bandwidth</a>
+            </li>
+            <li class="">
+              <a data-toggle="tab" href="#notifications">Notifications</a>
+            </li>
+            <li class="">
+              <a data-toggle="tab" href="#ui">UI</a>
+            </li>
+            <li class="">
+              <a data-toggle="tab" href="#system">System</a>
+            </li>
+          </ul>
+        </header>
+        <div class="panel-body">
+          <div class="tab-content">
+            <div id="torrent" class="tab-pane active">Torrent plugin, max amount of seeds, max amount of peers, etc</div>
+            <div id="storage" class="tab-pane">Storage Limitations, GB / TB max settings for completed / new isos, targets, folders, NFS, permissions, </div>
+            <div id="bandwidth" class="tab-pane">Bandwidth, up and down allocations / reservations / calendar for added bandwidth</div>
+            <div id="bandwidth" class="tab-pane">Notifications</div>
+            <div id="ui" class="tab-pane">UI Day of week, date formatting, long dates, time stamping</div>
+            <div id="system" class="tab-pane">System, restart app, stop app, emergency stop all bandwidth, stop all torrents, app info, versions, last updated update app</div>
+
           </div>
+        </div>
       </section>
 
-<!-- End of breadcrumb -->
+      <!-- End of breadcrumb -->
       <div class="row">
-<!-- start content here -->
+        <!-- start content here -->
 
 
 
