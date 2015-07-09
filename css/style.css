@@ -114,7 +114,7 @@ table tr th { color: #688a7e;}
     margin: 0;
     padding:20px 15px;
     text-align: center;
-    background: #34aadc;
+    background: #3A707D;
     border-radius: 5px 5px 0 0;
     -webkit-border-radius: 5px 5px 0 0;
     color: #fff;
@@ -188,14 +188,14 @@ table tr th { color: #688a7e;}
     font-weight: 300;
 }
 .login-img3-body .login-form p,.login-img2-body .login-form p {
-    color: #34aadc;
+    color: #3A707D;
 }
 .login-form a {
     color: #b6b6b6;
 }
 
 .login-form a:hover {
-    color: #34aadc;
+    color: #3A707D;
 }
 .form .required{
     font-size: 16px;
@@ -1853,7 +1853,7 @@ div[data-role="editor-toolbar"] {
 }
 
 .state-overview .terques {
-    background: #34AADC;
+    background: #3A707D;
 }
 
 .state-overview .red {
@@ -1980,7 +1980,7 @@ div[data-role="editor-toolbar"] {
 }
 
 .badge.bg-info {
-    background: #34aadc;
+    background: #3A707D;
 }
 
 .badge.bg-inverse {
@@ -2475,7 +2475,7 @@ ul.ft-link li a i {
     position: relative;
     left: -8px;
     background: #FFFFFF;
-    color: #34AADC;
+    color: #3A707D;
 
 }
 .follow-task i{
@@ -2647,7 +2647,7 @@ ul.ft-link li a i {
 /*weather*/
 
 .weather-bg {
-    background: #34AADC;
+    background: #3A707D;
     color: #fff;
     text-align: center;
     font-size: 16px;
@@ -2672,7 +2672,7 @@ ul.ft-link li a i {
     color: #ffffff;
 }
 .weather-info{
-    background: #34AADC;
+    background: #3A707D;
 }
 
 .weather-category ul {
@@ -2715,7 +2715,7 @@ ul.ft-link li a i {
 
 .weather-days{
     color: #ffffff;
-    background: #34AADC;
+    background: #3A707D;
 }
 
 .weather-days ul {
@@ -3451,7 +3451,7 @@ ul.inbox-pagination li {
 }
 
 .bio-desk h4.terques {
-    color: #34aadc;
+    color: #3A707D;
 }
 
 .bio-desk h4.red {
@@ -3720,8 +3720,8 @@ ul.amounts li {
     margin: 0px !important;
 }
 .panel-primary > .panel-heading.navyblue {
-    background-color: #2A3542;
-    border-color: #2A3542;
+    background-color: #003333;
+    border-color: #003333;
     color: #FFFFFF;
 }
 
@@ -4185,8 +4185,8 @@ table.sliders tr td {
     left: -63%;
 }
 .has-switch > div.switch-off label {
-    background-color: #7f8c9a;
-    border-color: #bdc3c7;
+    background-color: #894C4C;
+    border-color: #B2C1C1;
     -webkit-box-shadow: -1px 0 0 rgba(255, 255, 255, 0.5);
     -moz-box-shadow: -1px 0 0 rgba(255, 255, 255, 0.5);
     box-shadow: -1px 0 0 rgba(255, 255, 255, 0.5);
@@ -4195,7 +4195,7 @@ table.sliders tr td {
     left: 0%;
 }
 .has-switch > div.switch-on label {
-    background-color: #34aadc;
+    background-color: #4C7467;
 }
 .has-switch input[type=checkbox] {
     display: none;
@@ -4225,13 +4225,13 @@ table.sliders tr td {
 }
 .has-switch span.switch-left {
     border-radius: 30px 0 0 30px;
-    background-color: #2A3542;
-    color: #34aadc;
+    background-color: #B2C1C1;
+    color: #3A707D;
     border-left: 1px solid transparent;
 }
 .has-switch span.switch-right {
     border-radius: 0 30px 30px 0;
-    background-color: #bdc3c7;
+    background-color: #B2C1C1;
     color: #ffffff;
     text-indent: 7px;
 }
@@ -4239,7 +4239,7 @@ table.sliders tr td {
     text-indent: 0;
 }
 .has-switch label {
-    border: 4px solid #2A3542;
+    border: 4px solid #003333;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     float: left;
@@ -4263,7 +4263,7 @@ table.sliders tr td {
     mask: url('../img/mask.png') 0 0 no-repeat;
 }
 .switch-square > div.switch-off label {
-    border-color: #7f8c9a;
+    border-color: #894C4C;
     border-radius: 6px 0 0 6px;
 }
 .switch-square span.switch-left {
@@ -4280,7 +4280,7 @@ table.sliders tr td {
 }
 .switch-square label {
     border-radius: 0 6px 6px 0;
-    border-color: #34aadc;
+    border-color: #4C7467;
 }
 
 
@@ -4779,7 +4779,7 @@ table.sliders tr td {
 }
 
 .profile-activity .act-out  .arrow {
-    /*border-right: 8px solid #34aadc !important;*/
+    /*border-right: 8px solid #3A707D !important;*/
 }
 .profile-activity .act-out .arrow {
     border-bottom: 8px solid transparent;
@@ -4806,7 +4806,7 @@ table.sliders tr td {
     width: 14px;
 }
 .act-time:hover:before {
-    background: #34aadc;
+    background: #3A707D;
 }
 .act-time:first-child {
     padding-top: 0;
