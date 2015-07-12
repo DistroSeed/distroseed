@@ -14,7 +14,7 @@ DistroSeed is an automated assistant for finding, downloading, and managing Linu
 * Interface Preview: https://raw.githubusercontent.com/DistroSeed/DistroSeed-Dashboard/master/images/ScreenshotSamples/distroseed%20dash.PNG
 
 ### Contributions ###
-* Co founded by Ian Norden and Leon Denard.
+* Co founded by Ian Norden and Leon Denard, primary contributors include Chris Neal and Scott Groveman.
 
 ### License ###
 * [GNU GPL v3](http://www.gnu.org/licenses/gpl.html)
