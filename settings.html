@@ -18,10 +18,6 @@
   <!-- font icon -->
   <link href="css/elegant-icons-style.css" rel="stylesheet" />
   <link href="css/font-awesome.min.css" rel="stylesheet" />
-  <!-- date picker -->
-
-  <!-- color picker -->
-
   <!-- Custom styles -->
   <link href="css/style.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet" />
@@ -32,23 +28,19 @@
 <body>
   <!-- header section start -->
   <section id="container" class="">
-
     <header class="header dark-bg">
       <div class="toggle-nav">
         <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
       </div>
-
       <!--logo start-->
       <a href="index.html" class="logo">DistroSeed <span class="lite">Dash</span></a>
       <!--logo end-->
-
       <div class="top-nav notification-row">
         <!-- notificatoin dropdown start-->
         <ul class="nav pull-right top-menu">
           <!-- user login dropdown start-->
           <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-
               <span class="username">UserName</span>
               <b class="caret"></b>
             </a>
@@ -85,12 +77,9 @@
       </div>
     </header>
     <!--header end-->
-
     <!--main content start-->
-
     <section class="wrapper">
       <!--overview start-->
-
       <!-- start of nav top breadcrumb-->
       <div class="row">
         <div class="col-lg-12">
@@ -125,9 +114,10 @@
           </ul>
         </header>
         <div class="panel-body">
+          <!-- Close New Pane -->
+          <!-- Start New Pane -->
           <div class="tab-content">
             <div id="torrent" class="tab-pane active">
-
               <div class="col-lg-12">
                 <section class="panel">
                   <header class="panel-heading">
@@ -136,7 +126,6 @@
                   <div class="panel-body">
                     <form class="form-horizontal " action="#">
                       <!--date picker start-->
-
                       <div class="form-group">
                         <label class="control-label col-sm-2">Torrent Master Control</label>
                         <!-- Switch Button -->
@@ -226,31 +215,24 @@
                         </div>
                       </div>
                     </div>
-
-
-                    <!--color picker end-->
-
                   </form>
-
-
                 </div>
               </section>
-
             </div>
           </div>
+          <!-- Close New Pane -->
+          <!-- Start New Pane -->
           <div id="storage" class="tab-pane">
-
-            <div class="col-lg-6">
+            <div class="col-lg-12">
               <section class="panel">
                 <header class="panel-heading">
-                  Storage Control
+                  Storage Control Menu
                 </header>
                 <div class="panel-body">
                   <form class="form-horizontal " action="#">
-                    <!--date picker start-->
-
                     <div class="form-group">
-                      <label class="control-label col-sm-4">On or off?</label>
+                      <label class="control-label col-sm-2">Torrent Master Control</label>
+                      <!-- Switch Button -->
                       <div class="col-sm-6">
                         <div class="row m-bot10">
                           <div class="col-xs-1 text-center">
@@ -262,67 +244,199 @@
                         </div>
                       </div>
                     </div>
+                    <!-- Close Switch Button -->
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-4">Starts with years view</label>
-                    <div class="col-sm-6">
-                      <div class="input-append date" id="dpYears" data-date="18-06-2013"
-                      data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-                      <input class="form-control" size="16" type="text" value="28-06-2013" readonly>
-
+                    <label class="control-label col-sm-2">Maximum Seeded Torrents #:</label>
+                    <div class="col-sm-1">
+                      <div class="input-prepend">
+                        <input id="reservation" type="text" class=" form-control" />
+                      </div>
                     </div>
                   </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Encrypt Torrent Traffic:</label>
+                    <div class="btn-row">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-default">None</button>
+                        <button type="button" class="btn btn-default">Preferred</button>
+                        <button type="button" class="btn btn-default">Required</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                    <div class="col-sm-1">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                    <div class="col-sm-1">
+                      <div class="input-prepend">
+                        <input id="reservation" type="text" class=" form-control" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                    <div class="col-sm-1">
+                      <div class="input-prepend">
+                        <input id="reservation" type="text" class=" form-control" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                    <div class="col-sm-1">
+                      <div class="input-prepend">
+                        <input id="reservation" type="text" class=" form-control" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                    <div class="col-sm-1">
+                      <div class="input-prepend">
+                        <input id="reservation" type="text" class=" form-control" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                    <div class="col-sm-1">
+                      <div class="input-prepend">
+                        <input id="reservation" type="text" class=" form-control" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                    <div class="col-sm-1">
+                      <div class="input-prepend">
+                        <input id="reservation" type="text" class=" form-control" />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </section>
+          </div>
+        </div>
+        <!-- Close New Pane -->
+        <!-- Start New Pane -->
+        <div id="bandwidth" class="tab-pane">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                Bandwidth Control Menu
+              </header>
+              <div class="panel-body">
+                <form class="form-horizontal " action="#">
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Torrent Master Control</label>
+                    <!-- Switch Button -->
+                    <div class="col-sm-6">
+                      <div class="row m-bot10">
+                        <div class="col-xs-1 text-center">
+                          <div class="switch switch-square"
+                          data-on-label="<i class=' icon-ok'></i>"
+                          data-off-label="<i class='icon-remove'></i>">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Close Switch Button -->
                 </div>
-
                 <div class="form-group">
-                  <label class="control-label col-sm-4"> Date Ranges</label>
-                  <div class="col-sm-6">
+                  <label class="control-label col-sm-2">Maximum Seeded Torrents #:</label>
+                  <div class="col-sm-1">
                     <div class="input-prepend">
                       <input id="reservation" type="text" class=" form-control" />
                     </div>
                   </div>
                 </div>
-                <!--date picker end-->
-
-                <!--color picker start-->
                 <div class="form-group">
-                  <label class="control-label col-sm-4">Default</label>
-
-                  <div class="col-sm-5">
-                    <input type="text" value="#CCCCCC" class="cp1 form-control">
+                  <label class="control-label col-sm-2">Encrypt Torrent Traffic:</label>
+                  <div class="btn-row">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default">None</button>
+                      <button type="button" class="btn btn-default">Preferred</button>
+                      <button type="button" class="btn btn-default">Required</button>
+                    </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="control-label col-sm-4">RGBA</label>
-
-                  <div class="col-sm-5">
-                    <input type="text" data-color-format="rgba" value="rgb(255,255,255,1)" class="cp2 form-control">
+                  <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                  <div class="col-sm-1">
                   </div>
                 </div>
-
-                <!--color picker end-->
-
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                  <div class="col-sm-1">
+                    <div class="input-prepend">
+                      <input id="reservation" type="text" class=" form-control" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                  <div class="col-sm-1">
+                    <div class="input-prepend">
+                      <input id="reservation" type="text" class=" form-control" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                  <div class="col-sm-1">
+                    <div class="input-prepend">
+                      <input id="reservation" type="text" class=" form-control" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                  <div class="col-sm-1">
+                    <div class="input-prepend">
+                      <input id="reservation" type="text" class=" form-control" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                  <div class="col-sm-1">
+                    <div class="input-prepend">
+                      <input id="reservation" type="text" class=" form-control" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                  <div class="col-sm-1">
+                    <div class="input-prepend">
+                      <input id="reservation" type="text" class=" form-control" />
+                    </div>
+                  </div>
+                </div>
               </form>
-
-
             </div>
           </section>
-
         </div>
       </div>
+      <!-- Close New Pane -->
+      <!-- Start New Pane -->
       <div id="bandwidth" class="tab-pane">
-
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <section class="panel">
             <header class="panel-heading">
-              Bandwidth Control
+              Notifications and Alerts Control Menu
             </header>
             <div class="panel-body">
               <form class="form-horizontal " action="#">
-                <!--date picker start-->
-
                 <div class="form-group">
-                  <label class="control-label col-sm-4">On or off?</label>
+                  <label class="control-label col-sm-2">Torrent Master Control</label>
+                  <!-- Switch Button -->
                   <div class="col-sm-6">
                     <div class="row m-bot10">
                       <div class="col-xs-1 text-center">
@@ -334,67 +448,170 @@
                     </div>
                   </div>
                 </div>
+                <!-- Close Switch Button -->
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-4">Starts with years view</label>
-                <div class="col-sm-6">
-                  <div class="input-append date" id="dpYears" data-date="18-06-2013"
-                  data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-                  <input class="form-control" size="16" type="text" value="28-06-2013" readonly>
-
+                <label class="control-label col-sm-2">Maximum Seeded Torrents #:</label>
+                <div class="col-sm-1">
+                  <div class="input-prepend">
+                    <input id="reservation" type="text" class=" form-control" />
+                  </div>
                 </div>
               </div>
-            </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Encrypt Torrent Traffic:</label>
+                <div class="btn-row">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default">None</button>
+                    <button type="button" class="btn btn-default">Preferred</button>
+                    <button type="button" class="btn btn-default">Required</button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                <div class="col-sm-1">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                <div class="col-sm-1">
+                  <div class="input-prepend">
+                    <input id="reservation" type="text" class=" form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                <div class="col-sm-1">
+                  <div class="input-prepend">
+                    <input id="reservation" type="text" class=" form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                <div class="col-sm-1">
+                  <div class="input-prepend">
+                    <input id="reservation" type="text" class=" form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                <div class="col-sm-1">
+                  <div class="input-prepend">
+                    <input id="reservation" type="text" class=" form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                <div class="col-sm-1">
+                  <div class="input-prepend">
+                    <input id="reservation" type="text" class=" form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+                <div class="col-sm-1">
+                  <div class="input-prepend">
+                    <input id="reservation" type="text" class=" form-control" />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+    <!-- Close New Pane -->
+    <!-- Start New Pane -->
+    <div id="ui" class="tab-pane">
+      <div class="col-lg-12">
+        <section class="panel">
+          <header class="panel-heading">
+            UI Control Menu
+          </header>
+          <div class="panel-body">
+            <form class="form-horizontal " action="#">
+              <!--date picker start-->
 
+              <div class="form-group">
+                <label class="control-label col-sm-2">Torrent Master Control</label>
+                <!-- Switch Button -->
+                <div class="col-sm-6">
+                  <div class="row m-bot10">
+                    <div class="col-xs-1 text-center">
+                      <div class="switch switch-square"
+                      data-on-label="<i class=' icon-ok'></i>"
+                      data-off-label="<i class='icon-remove'></i>">
+                      <input type="checkbox" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Close Switch Button -->
+            </div>
             <div class="form-group">
-              <label class="control-label col-sm-4"> Date Ranges</label>
-              <div class="col-sm-6">
+              <label class="control-label col-sm-2">Maximum Seeded Torrents #:</label>
+              <div class="col-sm-1">
                 <div class="input-prepend">
                   <input id="reservation" type="text" class=" form-control" />
                 </div>
               </div>
             </div>
-            <!--date picker end-->
-
-            <!--color picker start-->
             <div class="form-group">
-              <label class="control-label col-sm-4">Default</label>
-
-              <div class="col-sm-5">
-                <input type="text" value="#CCCCCC" class="cp1 form-control">
+              <label class="control-label col-sm-2">Encrypt Torrent Traffic:</label>
+              <div class="btn-row">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default">None</button>
+                  <button type="button" class="btn btn-default">Preferred</button>
+                  <button type="button" class="btn btn-default">Required</button>
+                </div>
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-sm-4">RGBA</label>
-
-              <div class="col-sm-5">
-                <input type="text" data-color-format="rgba" value="rgb(255,255,255,1)" class="cp2 form-control">
+              <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+              <div class="col-sm-1">
               </div>
             </div>
-
-            <!--color picker end-->
-
+            <div class="form-group">
+              <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+              <div class="col-sm-1">
+                <div class="input-prepend">
+                  <input id="reservation" type="text" class=" form-control" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+              <div class="col-sm-1">
+                <div class="input-prepend">
+                  <input id="reservation" type="text" class=" form-control" />
+                </div>
+              </div>
+            </div>
           </form>
-
-
         </div>
       </section>
-
     </div>
   </div>
-  <div id="bandwidth" class="tab-pane">
-
-    <div class="col-lg-6">
+  <!-- Close Pane -->
+  <!-- Start New Pane -->
+  <div id="system" class="tab-pane">
+    <div class="col-lg-12">
       <section class="panel">
         <header class="panel-heading">
-          Notifications
+          System Control Menu
         </header>
         <div class="panel-body">
           <form class="form-horizontal " action="#">
             <!--date picker start-->
-
             <div class="form-group">
-              <label class="control-label col-sm-4">On or off?</label>
+              <label class="control-label col-sm-2">Torrent Master Control</label>
+              <!-- Switch Button -->
               <div class="col-sm-6">
                 <div class="row m-bot10">
                   <div class="col-xs-1 text-center">
@@ -406,212 +623,92 @@
                 </div>
               </div>
             </div>
+            <!-- Close Switch Button -->
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-4">Starts with years view</label>
-            <div class="col-sm-6">
-              <div class="input-append date" id="dpYears" data-date="18-06-2013"
-              data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-              <input class="form-control" size="16" type="text" value="28-06-2013" readonly>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="control-label col-sm-4"> Date Ranges</label>
-          <div class="col-sm-6">
-            <div class="input-prepend">
-              <input id="reservation" type="text" class=" form-control" />
-            </div>
-          </div>
-        </div>
-        <!--date picker end-->
-
-        <!--color picker start-->
-        <div class="form-group">
-          <label class="control-label col-sm-4">Default</label>
-
-          <div class="col-sm-5">
-            <input type="text" value="#CCCCCC" class="cp1 form-control">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label col-sm-4">RGBA</label>
-
-          <div class="col-sm-5">
-            <input type="text" data-color-format="rgba" value="rgb(255,255,255,1)" class="cp2 form-control">
-          </div>
-        </div>
-
-        <!--color picker end-->
-
-      </form>
-
-
-    </div>
-  </section>
-
-</div>
-</div>
-<div id="ui" class="tab-pane">
-
-  <div class="col-lg-6">
-    <section class="panel">
-      <header class="panel-heading">
-        UI Knob Control
-      </header>
-      <div class="panel-body">
-        <form class="form-horizontal " action="#">
-          <!--date picker start-->
-
-          <div class="form-group">
-            <label class="control-label col-sm-4">On or off?</label>
-            <div class="col-sm-6">
-              <div class="row m-bot10">
-                <div class="col-xs-1 text-center">
-                  <div class="switch switch-square"
-                  data-on-label="<i class=' icon-ok'></i>"
-                  data-off-label="<i class='icon-remove'></i>">
-                  <input type="checkbox" />
-                </div>
+            <label class="control-label col-sm-2">Maximum Seeded Torrents #:</label>
+            <div class="col-sm-1">
+              <div class="input-prepend">
+                <input id="reservation" type="text" class=" form-control" />
               </div>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label col-sm-4">Starts with years view</label>
-          <div class="col-sm-6">
-            <div class="input-append date" id="dpYears" data-date="18-06-2013"
-            data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-            <input class="form-control" size="16" type="text" value="28-06-2013" readonly>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="control-label col-sm-4"> Date Ranges</label>
-        <div class="col-sm-6">
-          <div class="input-prepend">
-            <input id="reservation" type="text" class=" form-control" />
-          </div>
-        </div>
-      </div>
-      <!--date picker end-->
-
-      <!--color picker start-->
-      <div class="form-group">
-        <label class="control-label col-sm-4">Default</label>
-
-        <div class="col-sm-5">
-          <input type="text" value="#CCCCCC" class="cp1 form-control">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-4">RGBA</label>
-
-        <div class="col-sm-5">
-          <input type="text" data-color-format="rgba" value="rgb(255,255,255,1)" class="cp2 form-control">
-        </div>
-      </div>
-
-      <!--color picker end-->
-
-    </form>
-
-
-  </div>
-</section>
-
-</div>
-</div>
-<div id="system" class="tab-pane">
-
-  <div class="col-lg-6">
-    <section class="panel">
-      <header class="panel-heading">
-        System Settings
-      </header>
-      <div class="panel-body">
-        <form class="form-horizontal " action="#">
-          <!--date picker start-->
-
           <div class="form-group">
-            <label class="control-label col-sm-4">On or off?</label>
-            <div class="col-sm-6">
-              <div class="row m-bot10">
-                <div class="col-xs-1 text-center">
-                  <div class="switch switch-square"
-                  data-on-label="<i class=' icon-ok'></i>"
-                  data-off-label="<i class='icon-remove'></i>">
-                  <input type="checkbox" />
-                </div>
+            <label class="control-label col-sm-2">Encrypt Torrent Traffic:</label>
+            <div class="btn-row">
+              <div class="btn-group">
+                <button type="button" class="btn btn-default">None</button>
+                <button type="button" class="btn btn-default">Preferred</button>
+                <button type="button" class="btn btn-default">Required</button>
               </div>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label col-sm-4">Starts with years view</label>
-          <div class="col-sm-6">
-            <div class="input-append date" id="dpYears" data-date="18-06-2013"
-            data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-            <input class="form-control" size="16" type="text" value="28-06-2013" readonly>
-
+          <div class="form-group">
+            <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+            <div class="col-sm-1">
+            </div>
           </div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="control-label col-sm-4"> Date Ranges</label>
-        <div class="col-sm-6">
-          <div class="input-prepend">
-            <input id="reservation" type="text" class=" form-control" />
+          <div class="form-group">
+            <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+            <div class="col-sm-1">
+              <div class="input-prepend">
+                <input id="reservation" type="text" class=" form-control" />
+              </div>
+            </div>
           </div>
-        </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+            <div class="col-sm-1">
+              <div class="input-prepend">
+                <input id="reservation" type="text" class=" form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+            <div class="col-sm-1">
+              <div class="input-prepend">
+                <input id="reservation" type="text" class=" form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+            <div class="col-sm-1">
+              <div class="input-prepend">
+                <input id="reservation" type="text" class=" form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+            <div class="col-sm-1">
+              <div class="input-prepend">
+                <input id="reservation" type="text" class=" form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
+            <div class="col-sm-1">
+              <div class="input-prepend">
+                <input id="reservation" type="text" class=" form-control" />
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
-      <!--date picker end-->
-
-      <!--color picker start-->
-      <div class="form-group">
-        <label class="control-label col-sm-4">Default</label>
-
-        <div class="col-sm-5">
-          <input type="text" value="#CCCCCC" class="cp1 form-control">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-4">RGBA</label>
-
-        <div class="col-sm-5">
-          <input type="text" data-color-format="rgba" value="rgb(255,255,255,1)" class="cp2 form-control">
-        </div>
-      </div>
-
-      <!--color picker end-->
-
-    </form>
-
-
+    </section>
   </div>
-</section>
-
 </div>
+<!-- Close Pane -->
 </div>
-
-
-
-
-</div>
-
 </div>
 </div>
 </section>
-
-<!-- End of breadcrumb -->
+<!-- End of tab navigation for switching in settings menu -->
 <div class="row">
   <!-- start content here -->
-
 </div>
 </section>
 <!-- container section end -->
