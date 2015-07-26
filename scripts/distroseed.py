@@ -2,6 +2,7 @@
 
 import os
 import re
+import time
 import requests
 import subprocess
 import BeautifulSoup
@@ -81,6 +82,8 @@ def scraptorrentlink(url,ip='127.0.0.1',port=9091):
             blacklist.append(link)
             # add to failures list to return
             failures.append(link)
+        # add time delay to keep from crashing transmission
+        time.sleep(1)
 
     # writing blacklist to file
     with open(os.getcwd() + '/blacklist.txt', 'w') as f:
@@ -114,4 +117,36 @@ def purgeall(ip='127.0.0.1',port=9091,purge_data=False):
     except:
         return False
 
-# def torrentstatus(torrent,ip='127.0.0.1',port=9091):
+def torrentstatusall(ip='127.0.0.1',port=9091):
+
+    currentlist = []
+
+    # Setup transmission connection
+    tc = transmissionrpc.Client(ip, port=port)
+
+    # Get list of current torrents in transmission
+    current_torrents = tc.get_torrents()
+
+    # See if transmission has any torrents in it
+    if len(current_torrents)==0 or current_torrents is None:
+        return current_torrents
+    
+    # Turn torrent objects into a list of statuses
+    for tobject in current_torrents:
+        try:
+            status = tobject.eta
+	except:
+            status = None
+        currentlist.append({
+            'hashstring':tobject.hashString,
+            'name':tobject.name,
+            'status':tobject.status,
+            'eta':status,            
+        })
+
+    # return list of torrents and status
+    try:
+        return currentlist
+    except:
+        return currentlist
+
