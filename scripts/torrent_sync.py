@@ -1,9 +1,13 @@
 #!/usr/bin/python
 import os
+import re
+import json
 import requests
+import feedparser
 import BeautifulSoup
 from urlparse import urlparse
 
+feedparser.USER_AGENT = "Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/39.0"
 tmp_dir='/data/n1/scripts/distroseed/DistroSeed-Dashboard/scripts/tmp/'
 final_dir='/data/n1/scripts/distroseed/DistroSeed-Dashboard/scripts/torrents/'
 
@@ -64,7 +68,30 @@ def stripper(url):
     for link in links:
         os.system('wget -q --directory-prefix="%s" %s >/dev/null' % (final_dir,link))
 
+def rss_download(url):
+    rssfeed = feedparser.parse(url)
+    links = []
+    for i in range(0,len(rssfeed)):
+        links.append(rssfeed['entries'][i].link)
+    for link in links:
+        os.system('wget -q --directory-prefix="%s" %s >/dev/null' % (final_dir,link))
+
+def rsync_download(url):
+    os.system("rsync -Pav --include '+ */' --include '*.torrent' --exclude '- *' %s %s >/dev/null" % (url,tmp_dir))
 
 
+## Main ##
+# clean out current download folder
+os.system("rm -f %s*" % final_dir)
 for link in strip_links:
     stripper(link)
+    print "finished %s..." % link
+
+for link in rss_pull:
+    rss_download(link)
+    print "finished %s..." % link
+
+for link in rsync_list:
+    rsync_download(link)
+    print "finished %s..." % link
+os.system("find %s -regex \".*\.torrent\" -exec cp '{}' %s \;" % (tmp_dir,final_dir))
