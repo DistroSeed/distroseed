@@ -1,15 +1,20 @@
 #!/usr/bin/python
 import os
 import re
+import glob
+import time
 import json
 import requests
 import feedparser
 import BeautifulSoup
+import transmissionrpc
 from urlparse import urlparse
 
 feedparser.USER_AGENT = "Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/39.0"
 tmp_dir='/data/n1/scripts/distroseed/DistroSeed-Dashboard/scripts/tmp/'
 final_dir='/data/n1/scripts/distroseed/DistroSeed-Dashboard/scripts/torrents/'
+ip="10.20.254.20"
+port=9091
 
 rsync_list = [
     'rsync://rsync.gtlib.gatech.edu/centos/',
@@ -81,17 +86,71 @@ def rsync_download(url):
 
 
 ## Main ##
+
 # clean out current download folder
 os.system("rm -f %s*" % final_dir)
+
+# loop through links to strip for torrent links
 for link in strip_links:
     stripper(link)
     print "finished %s..." % link
 
+# loop through rss feeds
 for link in rss_pull:
     rss_download(link)
     print "finished %s..." % link
 
+# loop through rsync list to pull torrents from mirrors
 for link in rsync_list:
     rsync_download(link)
     print "finished %s..." % link
+
+# move all torrent files to final_dir
 os.system("find %s -regex \".*\.torrent\" -exec cp '{}' %s \;" % (tmp_dir,final_dir))
+
+# lists
+add_list = []
+currentlist = []
+successful = []
+blacklist = []
+failures = []
+
+# Setup transmission connection
+tc = transmissionrpc.Client(ip, port=port)
+
+# Get list of current torrents in transmission
+current_torrents = tc.get_torrents()
+
+# Turn torrent objects into a name list
+for tobject in current_torrents:
+	currentlist.append(tobject.name)
+
+# pull list of torrent files
+file_list = glob.glob(final_dir + "*.torrent")
+
+# make sure we don't already have the torrent
+for file in file_list:
+    # strip the link down to the filename
+    file_name = re.sub('.torrent$', '', file.split('/')[-1]).lower()
+    # strip the .iso extention
+    file_name = re.sub('.iso$', '', file_name)
+    # see if the file is currently in tranmission or blacklisted
+    if file_name not in currentlist:
+        add_list.append(file)
+
+# looping through the downloadlist to add to transmission
+for file in add_list:
+    try:
+        # add torrent link to transmission
+        tc.add_torrent(file,paused=True)
+        # add link to successful list if doesnt fail
+        successful.append(file)
+        print "successfully added %s..." % file
+    except:
+        # if url adding to transmission fails, blacklist it
+        blacklist.append(file)
+        # add to failures list to return
+        failures.append(file)
+        print "failed to add %s..." % file
+    # add time delay to keep from crashing transmission
+    time.sleep(1)
