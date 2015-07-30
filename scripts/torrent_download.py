@@ -19,12 +19,11 @@ for status in statuses:
         torrent_limit = torrent_limit + 1
 
 for status in statuses:
-    if torrent_limit == 10:
+    if torrent_limit == 5:
         break
     else:
         download_status = status['status']
         if download_status == 'downloading' or download_status == 'download pending':
-            torrent_limit = torrent_limit + 1
             continue
         if download_status == 'stopped':
             hash = status['hashstring']

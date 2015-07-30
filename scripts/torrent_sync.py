@@ -153,4 +153,4 @@ for file in add_list:
         failures.append(file)
         print "failed to add %s..." % file
     # add time delay to keep from crashing transmission
-    time.sleep(1)
+    time.sleep(3)
