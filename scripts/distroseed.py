@@ -40,7 +40,7 @@ def scraptorrentlink(url,ip='127.0.0.1',port=9091):
     start_link = page.find("a href")
 
     def getURL(page):
-        start_link = page.find("a href")
+        start_link = page.find("href")
         if start_link == -1:
             return None, 0
         start_quote = page.find('"', start_link)

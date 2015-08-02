@@ -11,13 +11,16 @@ torrent_limit = 0
 # Setup transmission connection
 tc = transmissionrpc.Client(ip, port=port)
 
+# get status of all current torrents
 statuses = torrentstatusall()
 
+# determining the number of current torrents downloading
 for status in statuses:
     download_status = status['status']
     if download_status == 'downloading' or download_status == 'download pending':
         torrent_limit = torrent_limit + 1
 
+# add new torrents if not more than five
 for status in statuses:
     if torrent_limit == 5:
         break

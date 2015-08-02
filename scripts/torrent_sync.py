@@ -25,8 +25,9 @@ rsync_list = [
 ]
 
 strip_links = [
-    'http://www.slackware.com/getslack/torrents.php',
-    'http://www.gotbsd.net/',
+#    'http://www.slackware.com/getslack/torrents.php',
+#    'http://www.gotbsd.net/',
+    'http://xubuntu.org/getxubuntu/',
 ]
 
 rss_pull = [
@@ -42,10 +43,10 @@ def stripper(url):
     downloadlinks = []
     response = requests.get(url)
     page = str(BeautifulSoup.BeautifulSoup(response.content))
-    start_link = page.find("a href")
+    start_link = page.find("href")
 
     def getURL(page):
-	start_link = page.find("a href")
+	start_link = page.find("href")
 	if start_link == -1:
 		return None, 0
 	start_quote = page.find('"', start_link)
@@ -71,7 +72,7 @@ def stripper(url):
     correctlinks = [ x for x in links if 'http' in x ]
     links = fixedlinks + correctlinks
     for link in links:
-        os.system('wget -q --directory-prefix="%s" %s >/dev/null' % (final_dir,link))
+        os.system('wget -N -q --directory-prefix="%s" %s >/dev/null' % (final_dir,link))
 
 def rss_download(url):
     rssfeed = feedparser.parse(url)
@@ -79,7 +80,7 @@ def rss_download(url):
     for i in range(0,len(rssfeed)):
         links.append(rssfeed['entries'][i].link)
     for link in links:
-        os.system('wget -q --directory-prefix="%s" %s >/dev/null' % (final_dir,link))
+        os.system('wget -N -q --directory-prefix="%s" %s >/dev/null' % (final_dir,link))
 
 def rsync_download(url):
     os.system("rsync -Pav --include '+ */' --include '*.torrent' --exclude '- *' %s %s >/dev/null" % (url,tmp_dir))
@@ -88,7 +89,7 @@ def rsync_download(url):
 ## Main ##
 
 # clean out current download folder
-os.system("rm -f %s*" % final_dir)
+# os.system("rm -f %s*" % final_dir)
 
 # loop through links to strip for torrent links
 for link in strip_links:
@@ -112,8 +113,11 @@ os.system("find %s -regex \".*\.torrent\" -exec cp '{}' %s \;" % (tmp_dir,final_
 add_list = []
 currentlist = []
 successful = []
-blacklist = []
 failures = []
+
+# define blacklist
+with open(os.getcwd() + '/blacklist.txt') as f:
+    blacklist = f.read().splitlines()
 
 # Setup transmission connection
 tc = transmissionrpc.Client(ip, port=port)
@@ -123,20 +127,24 @@ current_torrents = tc.get_torrents()
 
 # Turn torrent objects into a name list
 for tobject in current_torrents:
-	currentlist.append(tobject.name)
+    currentlist.append(tobject.name)
+
+# Remove extentions from items in list
+currentlist = [re.sub('iso$', '', re.sub('.zip$', '', re.sub('.img$', '', re.sub('.iso$', '', re.sub('.torrent$', '', x.lower() ) )))) for x in currentlist]
 
 # pull list of torrent files
 file_list = glob.glob(final_dir + "*.torrent")
 
 # make sure we don't already have the torrent
 for file in file_list:
-    # strip the link down to the filename
-    file_name = re.sub('.torrent$', '', file.split('/')[-1]).lower()
-    # strip the .iso extention
-    file_name = re.sub('.iso$', '', file_name)
+    # strip the link down to the filename and remove the extentions
+    file_name = re.sub('iso$', '', re.sub('.zip$', '', re.sub('.img$', '', re.sub('.iso$', '', re.sub('.torrent$', '', file.split('/')[-1]).lower()))))
     # see if the file is currently in tranmission or blacklisted
-    if file_name not in currentlist:
+    if file_name not in currentlist and file_name not in blacklist:
         add_list.append(file)
+    else:
+        print "skipping %s ..." % file_name
+
 
 # looping through the downloadlist to add to transmission
 for file in add_list:
@@ -153,4 +161,9 @@ for file in add_list:
         failures.append(file)
         print "failed to add %s..." % file
     # add time delay to keep from crashing transmission
-    time.sleep(3)
+    time.sleep(10)
+
+# writing blacklist to file
+blacklist = [re.sub('.zip$', '', re.sub('.img$', '', re.sub('.iso$', '', re.sub('.torrent$', '', x.split('/')[-1]).lower()))) for x in blacklist]
+with open(os.getcwd() + '/blacklist.txt', 'w') as f:
+    f.write('\n'.join(blacklist))
