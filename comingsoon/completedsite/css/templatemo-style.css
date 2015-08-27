@@ -137,7 +137,7 @@ img
     }
 .navbar-default .navbar-brand
     {
-        color: #003333;
+        color: #4C7467;
         font-size: 30px;
         font-weight: bold;
         height: 70px;
@@ -417,6 +417,7 @@ footer
 @media screen and ( max-width: 991px ) {
     .templatemo-box {
         margin-bottom: 30px;
+        align: center;
     }
     #pricing .active {
         bottom: 0;
