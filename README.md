@@ -61,3 +61,4 @@ Copyright 2010-2015
 <code>firewall-cmd --reload</code><br />
 <code>systemctl enable firewalld</code><br />
 <code>systemctl start firewalld</code><br />
+<code>chcon -R -t httpd_sys_content_rw_t /data</code>
