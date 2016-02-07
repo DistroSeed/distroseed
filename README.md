@@ -7,8 +7,8 @@ DistroSeed is an automated assistant for finding, downloading, and managing Linu
 * Management of bandwidth allocations, storage limiters, and auto pruning of old torrents.
 * Feel good for supporting Linux distribution efforts.
 
-### Development ###
-* Interface Preview: https://raw.githubusercontent.com/DistroSeed/DistroSeed-Dashboard/master/images/ScreenshotSamples/distroseed%20dash.PNG
+### Take a Peak ###
+* [At our site](https://distroseed.com)
 
 ### Contributions ###
 * Co founded by Ian Norden and Leon Denard, primary contributors include Chris Neal and Scott Groveman.
