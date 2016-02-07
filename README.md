@@ -20,7 +20,7 @@ Copyright 2010-2016
 
 ### Setup Guide (incomplete) ###
 <code>yum install -y epel-release</code><br />
-<code>yum install -y httpd tranmission-cli transmission-daemon transmission python-pip git nano mod_wsgi</code><br />
+<code>yum install -y httpd tranmission-cli transmission-daemon transmission python-pip git nano mod_wsgi python-requests python-BeautifulSoup</code><br />
 <code>pip install --upgrade pip</code><br />
 <code>pip install django</code><br />
 <code>pip install transmissionrpc</code><br />
@@ -58,4 +58,8 @@ Copyright 2010-2016
 <code>firewall-cmd --reload</code><br />
 <code>systemctl enable firewalld</code><br />
 <code>systemctl start firewalld</code><br />
-<code>chcon -R -t httpd_sys_content_rw_t /data</code>
+<code>chcon -R -t httpd_sys_content_rw_t /data</code><br />
+<code>python manage.py makemigrations</code><br />
+<code>python manage.py migrate</code><br />
+<code>python manage.py createsuperuser</code><br />
+<code>chown -R apache:apache /data</code><br />
