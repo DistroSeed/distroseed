@@ -18,4 +18,11 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^$', 'distroseed.dashboard.views.index'),
+    url(r'^login/$', 'distroseed.dashboard.views.login'),
+    url(r'^logout/$', 'distroseed.dashboard.views.logout'),
+    url(r'^newdistro/$', 'distroseed.dashboard.views.newdistro'),
+    url(r'^notifications/$', 'distroseed.dashboard.views.notifications'),
+    url(r'^logs/$', 'distroseed.dashboard.views.logs'),
+    url(r'^settings/$', 'distroseed.dashboard.views.settings'),
+    url(r'^timeline/$', 'distroseed.dashboard.views.timeline'),
 ]
