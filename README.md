@@ -18,7 +18,7 @@ DistroSeed is an automated assistant for finding, downloading, and managing Linu
 
 ### License ###
 * [GNU GPL v3](http://www.gnu.org/licenses/gpl.html)
-Copyright 2010-2015
+Copyright 2010-2016
 
 
 ### Setup Guide (incomplete) ###
