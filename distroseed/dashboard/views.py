@@ -1,3 +1,5 @@
+import transmissionrpc
+from hurry.filesize import size
 from django.db.models import *
 from django.template import Context, loader, RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, render
@@ -24,7 +26,22 @@ def auth_logout(request):
     return HttpResponseRedirect(reverse('index'))
 
 def index(request):
-    return render_to_response('index.html', {'username' : request.user,}, context_instance=RequestContext(request))
+    torrents = []
+    tc = transmissionrpc.Client('127.0.0.1', port=9091)
+    current_torrents = tc.get_torrents()
+    for t in current_torrents:
+        percent = (t.leftUntilDone/t.sizeWhenDone)
+        if t.leftUntilDone == 0:
+            percent = 100
+        dic = {
+            'name' : t.name,
+            'size' : size(t.sizeWhenDone),
+            'upload' : size(t.rateUpload),
+            'download' : size(t.rateDownload),
+            'percent' : percent,
+        }
+        torrents.append(dic)
+    return render_to_response('index.html', {'username' : request.user, 'torrents' : torrents,}, context_instance=RequestContext(request))
 
 def logs(request):
     return render_to_response('logs.html', {'username' : request.user,}, context_instance=RequestContext(request))
