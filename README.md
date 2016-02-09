@@ -63,3 +63,84 @@ Copyright 2010-2016
 <code>python manage.py migrate</code><br />
 <code>python manage.py createsuperuser</code><br />
 <code>chown -R apache:apache /data</code><br />
+<code>systemctl enable transmission-daemon</code><br />
+<code>systemctl start transmission-daemon</code><br />
+<code>mkdir /data/downloads</code><br />
+<code>mkdir /data/downloads/complete</code><br />
+<code>mkdir /data/downloads/incomplete</code><br />
+<code>mkdir /data/downloads/torrents</code><br />
+<code>chown -R transmission:transmission /data/downloads</code><br />
+<code>systemctl stop transmission-daemon</code><br />
+<code>nano /var/lib/transmission/.config/transmission-daemon/settings.json</code><br />
+<blockquote>
+{
+    "alt-speed-down": 50, 
+    "alt-speed-enabled": false, 
+    "alt-speed-time-begin": 540, 
+    "alt-speed-time-day": 127, 
+    "alt-speed-time-enabled": false, 
+    "alt-speed-time-end": 1020, 
+    "alt-speed-up": 50, 
+    "bind-address-ipv4": "0.0.0.0", 
+    "bind-address-ipv6": "::", 
+    "blocklist-enabled": false, 
+    "blocklist-url": "http://www.example.com/blocklist", 
+    "cache-size-mb": 10, 
+    "dht-enabled": true, 
+    "download-dir": "/data/downloads/complete", 
+    "download-queue-enabled": true, 
+    "download-queue-size": 5, 
+    "encryption": 2, 
+    "idle-seeding-limit": 30, 
+    "idle-seeding-limit-enabled": false, 
+    "incomplete-dir": "/data/downloads/incomplete", 
+    "incomplete-dir-enabled": true, 
+    "lpd-enabled": false, 
+    "message-level": 1, 
+    "peer-congestion-algorithm": "", 
+    "peer-id-ttl-hours": 6, 
+    "peer-limit-global": 200, 
+    "peer-limit-per-torrent": 50, 
+    "peer-port": 51413, 
+    "peer-port-random-high": 65535, 
+    "peer-port-random-low": 49152, 
+    "peer-port-random-on-start": false, 
+    "peer-socket-tos": "default", 
+    "pex-enabled": true, 
+    "port-forwarding-enabled": true, 
+    "preallocation": 1, 
+    "prefetch-enabled": 1, 
+    "queue-stalled-enabled": true, 
+    "queue-stalled-minutes": 30, 
+    "ratio-limit": 2, 
+    "ratio-limit-enabled": false, 
+    "rename-partial-files": true, 
+    "rpc-authentication-required": false, 
+    "rpc-bind-address": "0.0.0.0", 
+    "rpc-enabled": true, 
+    "rpc-password": "{c1b7e39a73a4f2d9a0d75781a0c09c07fbfb5d527W3bwH1f", 
+    "rpc-port": 9091, 
+    "rpc-url": "/transmission/", 
+    "rpc-username": "", 
+    "rpc-whitelist": "127.0.0.1", 
+    "rpc-whitelist-enabled": true, 
+    "scrape-paused-torrents-enabled": true, 
+    "script-torrent-done-enabled": false, 
+    "script-torrent-done-filename": "", 
+    "seed-queue-enabled": false, 
+    "seed-queue-size": 10, 
+    "speed-limit-down": 100, 
+    "speed-limit-down-enabled": false, 
+    "speed-limit-up": 100, 
+    "speed-limit-up-enabled": false, 
+    "start-added-torrents": true, 
+    "trash-original-torrent-files": false, 
+    "umask": 18, 
+    "upload-slots-per-torrent": 14, 
+    "utp-enabled": true, 
+    "watch-dir": "/data/downloads/torrents", 
+    "watch-dir-enabled": true
+}
+</blockquote> 
+<code>sudo systemctl start transmission-daemon
+<code>sudo setsebool -P httpd_can_network_connect on
