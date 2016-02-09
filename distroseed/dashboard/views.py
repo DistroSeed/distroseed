@@ -1,3 +1,4 @@
+import re
 import transmissionrpc
 from hurry.filesize import size
 from django.db.models import *
@@ -28,20 +29,55 @@ def auth_logout(request):
 def index(request):
     torrents = []
     tc = transmissionrpc.Client('127.0.0.1', port=9091)
+    session_stats = tc.session_stats()
+    cumulative_stats = session_stats.cumulative_stats
+    uploaded = size(cumulative_stats['uploadedBytes'])
+    downloaded = size(cumulative_stats['downloadedBytes'])
+    active_torrents = session_stats.activeTorrentCount
+    torrent_count = session_stats.torrentCount
+    free_space = size(session_stats.download_dir_free_space)
     current_torrents = tc.get_torrents()
     for t in current_torrents:
-        percent = (t.leftUntilDone/t.sizeWhenDone)
-        if t.leftUntilDone == 0:
-            percent = 100
+        percent = t.progress
+        name = t.name.replace('.iso','').replace('.img','')
+        if 'ubuntu' in name:
+            name_array = name.split('-')
+            distro = name_array[0].capitalize()
+            version = name_array[1]
+            if name_array[3] == 'amd64':
+                arch = 'x64'
+            if name_array[3] == 'i386':
+                arch = 'x32'
+            type = name_array[2].capitalize() + ' ' + arch
+        if 'centos' in name.lower():
+            name_array = name.split('-')
+            distro = name_array[0]
+            version = name_array[1]
+            if name_array[3] == 'x86_64':
+                arch = 'x64'
+            if name_array[3] == 'x86':
+                arch = 'x32'
+            type = name_array[3].capitalize() + ' ' + arch
         dic = {
             'name' : t.name,
+            'distro' : distro,
+            'version' : version,
+            'type' : type,
             'size' : size(t.sizeWhenDone),
             'upload' : size(t.rateUpload),
             'download' : size(t.rateDownload),
             'percent' : percent,
         }
         torrents.append(dic)
-    return render_to_response('index.html', {'username' : request.user, 'torrents' : torrents,}, context_instance=RequestContext(request))
+    return render_to_response('index.html', {
+        'username' : request.user, 
+        'torrents' : torrents,
+        'uploaded' : uploaded,
+        'downloaded' : downloaded,
+        'active_torrents' : active_torrents,
+        'torrent_count' : torrent_count,
+        'free_space' : free_space,
+    }, context_instance=RequestContext(request))
 
 def logs(request):
     return render_to_response('logs.html', {'username' : request.user,}, context_instance=RequestContext(request))

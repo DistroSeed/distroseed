@@ -75,7 +75,7 @@
           <div class="info-box blue-bg">
             <i class="fa fa-arrow-circle-o-up pull-right"></i>
             <i class="fa fa-arrow-circle-o-down"></i>
-            <div class="count">68.6GB <span class="pull-right">85.12GB</span></div>
+            <div class="count">{{downloaded}}<span class="pull-right">{{uploaded}}</span></div>
             <div class="title">Downloaded this month<span class="pull-right">Uploaded this month</span></div>
           </div><!--/.info-box-->
         </div><!--/.col-->
@@ -83,24 +83,24 @@
         <div class="col-lg-2">
           <div class="info-box yellow-bg">
             <i class="fa fa-signal"></i>
-            <div class="count">47</div>
-            <div class="title">Active Seeds</div>
+            <div class="count">{{active_torrents}}</div>
+            <div class="title">Active Torrents</div>
           </div><!--/.info-box-->
         </div><!--/.col-->
 
         <div class="col-lg-2">
           <div class="info-box maroonlite-bg">
             <i class="fa fa-search-plus"></i>
-            <div class="count">23</div>
-            <div class="title">New seeds</div>
+            <div class="count">{{torrent_count}}</div>
+            <div class="title">Torrent Count</div>
           </div><!--/.info-box-->
         </div><!--/.col-->
 
         <div class="col-lg-3">
           <div class="info-box green-bg">
             <i class="fa fa-cubes"></i>
-            <div class="count">85.43 GB</div>
-            <div class="title">Current Storage Used</div>
+            <div class="count">{{free_space}}</div>
+            <div class="title">Current Storage Free</div>
           </div><!--/.info-box-->
         </div><!--/.col-->
 
@@ -127,17 +127,17 @@
                     <th>Type</th>
                     <th>Version</th>
                     <th>Size</th>
-                    <th>Up / Down</th>
+                    <th>Down / Up</th>
                     <th>Progress</th>
                   </tr>
                 </thead>
                 <tbody>
                   {%for torrent in torrents%}
                   <tr>
-                    <td><img src="{{MEDIA_URL}}img/icons/ubuntu-logo.png" style="height:18px; margin-top:-2px;"></td>
-                    <td>{{torrent.name}}</td>
-                    <td>X64 Desktop</td>
-                    <td>15.04</td>
+                    <td><img src="{{MEDIA_URL}}img/icons/{{torrent.distro|lower}}-logo.png" style="height:18px; margin-top:-2px;"></td>
+                    <td>{{torrent.distro}}</td>
+                    <td>{{torrent.type}}</td>
+                    <td>{{torrent.version}}</td>
                     <td>{{torrent.size}}</td>
                     <td>{{torrent.download}} | {{torrent.upload}}</td>
                     <td>
