@@ -38,7 +38,7 @@ Copyright 2010-2016
                 Order deny,allow
                 Allow from all
                 Require all granted
-        &lt;/Directorygt;
+        &lt;/Directory&gt;
         Alias /media /data/distroseed/media/
         &lt;Directory "/data/distroseed/media/"&gt;
                 Order deny,allow
