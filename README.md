@@ -29,28 +29,30 @@ Copyright 2010-2016
 <code>rm -f /etc/httpd/conf.d/*</code><br />
 <code>nano /etc/httpd/conf.d/distroseed.conf</code><br />
 <blockquote>
-<VirtualHost *:80>
+<pre>
+&lt;VirtualHost *:80&gt;
         ServerName distroseed.pingnattack.com
         ServerAlias distroseed
         WSGIScriptAlias / /data/distroseed/distroseed/wsgi.py
-        <Directory "/data/distroseed/distroseed/">
+        &lt;Directory "/data/distroseed/distroseed/"gt;
                 Order deny,allow
                 Allow from all
                 Require all granted
-        </Directory>        
+        &lt;/Directorygt;
         Alias /media /data/distroseed/media/
-        <Directory "/data/distroseed/media/">
+        &lt;Directory "/data/distroseed/media/"gt;
                 Order deny,allow
                 Allow from all
                 Require all granted
-        </Directory>
+        &lt;/Directorygt;
         Alias /static /data/distroseed/media/static
-        <Directory "/data/distroseed/media/static">
+        &lt;Directory "/data/distroseed/media/static"gt;
                 Order deny,allow
                 Allow from all
                 Require all granted
-        </Directory>
-</VirtualHost>
+        &lt;/Directorygt;
+&lt;/VirtualHostgt;
+</pre>
 </blockquote>
 <code>systemctl start httpd</code><br />
 <code>systemctl enable httpd</code><br />
