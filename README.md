@@ -28,7 +28,7 @@ Copyright 2010-2016
 <code>mkdir /data</code><br />
 <code>rm -f /etc/httpd/conf.d/*</code><br />
 <code>nano /etc/httpd/conf.d/distroseed.conf</code><br />
-<blockquote>
+<blockquote><pre>
 <VirtualHost *:80>
         ServerName distroseed.pingnattack.com
         ServerAlias distroseed
@@ -50,7 +50,7 @@ Copyright 2010-2016
                 Allow from all
                 Require all granted
         </Directory>
-</VirtualHost>
+</VirtualHost></pre>
 </blockquote>
 <code>systemctl start httpd</code><br />
 <code>systemctl enable httpd</code><br />
@@ -72,7 +72,7 @@ Copyright 2010-2016
 <code>chown -R transmission:transmission /data/downloads</code><br />
 <code>systemctl stop transmission-daemon</code><br />
 <code>nano /var/lib/transmission/.config/transmission-daemon/settings.json</code><br />
-<blockquote>
+<blockquote><pre>
 {
     "alt-speed-down": 50, 
     "alt-speed-enabled": false, 
@@ -141,6 +141,6 @@ Copyright 2010-2016
     "watch-dir": "/data/downloads/torrents", 
     "watch-dir-enabled": true
 }
-</blockquote> 
+</pre></blockquote> 
 <code>sudo systemctl start transmission-daemon</code><br />
 <code>sudo setsebool -P httpd_can_network_connect on/code><br />
