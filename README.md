@@ -34,24 +34,24 @@ Copyright 2010-2016
         ServerName distroseed.pingnattack.com
         ServerAlias distroseed
         WSGIScriptAlias / /data/distroseed/distroseed/wsgi.py
-        &lt;Directory "/data/distroseed/distroseed/"gt;
+        &lt;Directory "/data/distroseed/distroseed/"&gt;
                 Order deny,allow
                 Allow from all
                 Require all granted
         &lt;/Directorygt;
         Alias /media /data/distroseed/media/
-        &lt;Directory "/data/distroseed/media/"gt;
+        &lt;Directory "/data/distroseed/media/"&gt;
                 Order deny,allow
                 Allow from all
                 Require all granted
-        &lt;/Directorygt;
+        &lt;/Directory&gt;
         Alias /static /data/distroseed/media/static
-        &lt;Directory "/data/distroseed/media/static"gt;
+        &lt;Directory "/data/distroseed/media/static"&gt;
                 Order deny,allow
                 Allow from all
                 Require all granted
-        &lt;/Directorygt;
-&lt;/VirtualHostgt;
+        &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
 </pre>
 </blockquote>
 <code>systemctl start httpd</code><br />
