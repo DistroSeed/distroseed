@@ -142,5 +142,5 @@ Copyright 2010-2016
     "watch-dir-enabled": true
 }
 </blockquote> 
-<code>sudo systemctl start transmission-daemon
-<code>sudo setsebool -P httpd_can_network_connect on
+<code>sudo systemctl start transmission-daemon</code><br />
+<code>sudo setsebool -P httpd_can_network_connect on/code><br />
