@@ -3,10 +3,14 @@ import transmissionrpc
 from hurry.filesize import size
 from django.db.models import *
 from django.template import Context, loader, RequestContext
-from django.shortcuts import render_to_response, get_object_or_404, render
+from django.shortcuts import render_to_response, get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django import forms
+from django.utils import timezone
+from .forms import AutoTorrentForm
+from .models import *
 
 def auth_login(request):
     if request.method == "POST":
@@ -83,7 +87,23 @@ def logs(request):
     return render_to_response('logs.html', {'username' : request.user,}, context_instance=RequestContext(request))
 
 def newdistro(request):
-    return render_to_response('newdistro.html', {'username' : request.user,}, context_instance=RequestContext(request))
+    if request.method == "POST":
+        form = AutoTorrentForm(request.POST)
+        if form.is_valid():
+            # commit=False means the form doesn't save at this time.
+            # commit defaults to True which means it normally saves.
+            model_instance = form.save(commit=False)
+            model_instance.timestamp = timezone.now()
+            model_instance.save()
+            return HttpResponseRedirect(reverse('newdistro'))
+    else:
+        current_autotorrents = AutoTorrent.objects.all()
+        form = AutoTorrentForm()
+    return render_to_response('newdistro.html', {
+        'username' : request.user,
+        'autotorrents' : current_autotorrents,
+        'form': form
+    }, context_instance=RequestContext(request))
 
 def notifications(request):
     return render_to_response('notifications.html', {'username' : request.user,}, context_instance=RequestContext(request))
