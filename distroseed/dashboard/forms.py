@@ -1,12 +1,15 @@
 from django import forms
-# from django.forms import CheckboxSelectMultiple
 from .models import *
 
 class AutoTorrentForm(forms.ModelForm):
+    id = forms.IntegerField(widget=forms.HiddenInput)
     name = forms.CharField(max_length=200, label='Distro Name') 
     url = forms.URLField(label='URL to Scrape', initial='http://') 
     excludes = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=Excludes.objects.all())
+    error_messages={
+        'unique':"This distro already exist. Either choose a different name or edit the current one."
+    }
 
     class Meta:
         model = AutoTorrent
-        fields = ('name', 'url', 'excludes')
+        fields = ('id', 'name', 'url', 'excludes')

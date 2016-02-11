@@ -8,7 +8,7 @@ class Excludes(models.Model):
         return "%s" % unicode(self.phrase)
 
 class AutoTorrent(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     url = models.URLField(max_length=300)
     excludes = models.ManyToManyField(Excludes,blank=True)
 

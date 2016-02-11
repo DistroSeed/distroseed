@@ -88,21 +88,30 @@ def logs(request):
 
 def newdistro(request):
     if request.method == "POST":
-        form = AutoTorrentForm(request.POST)
+        try: 
+            instance = AutoTorrent.objects.get(id=request.POST['id'])
+            if not instance:
+                form = AutoTorrentForm(request.POST)
+            else:
+                form = AutoTorrentForm(request.POST or None, instance=instance)
+        except:
+                form = AutoTorrentForm(request.POST)
+              
         if form.is_valid():
-            # commit=False means the form doesn't save at this time.
-            # commit defaults to True which means it normally saves.
             model_instance = form.save(commit=False)
-            model_instance.timestamp = timezone.now()
             model_instance.save()
+            form.save_m2m()
             return HttpResponseRedirect(reverse('newdistro'))
-    else:
-        current_autotorrents = AutoTorrent.objects.all()
-        form = AutoTorrentForm()
+  
+    form = AutoTorrentForm()
+    forms = []
+    current_autotorrents = AutoTorrent.objects.all()
+    for torrent in current_autotorrents:
+        forms.append(AutoTorrentForm(None, instance=torrent))
     return render_to_response('newdistro.html', {
         'username' : request.user,
-        'autotorrents' : current_autotorrents,
-        'form': form
+        'form' : form,
+        'forms': forms
     }, context_instance=RequestContext(request))
 
 def notifications(request):
