@@ -73,6 +73,7 @@ Copyright 2010-2016
 <code>mkdir /data/downloads/incomplete</code><br />
 <code>mkdir /data/downloads/torrents</code><br />
 <code>chown -R transmission:transmission /data/downloads</code><br />
+<code>chmod -R g+rwxs /data/downloads/torrents</code><br />
 <code>systemctl stop transmission-daemon</code><br />
 <code>nano /var/lib/transmission/.config/transmission-daemon/settings.json</code><br />
 <blockquote><pre>
