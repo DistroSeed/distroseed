@@ -58,9 +58,9 @@ def index(request):
             name_array = name.split('-')
             distro = name_array[0]
             version = name_array[1]
-            if name_array[3] == 'x86_64':
+            if name_array[2] == 'x86_64':
                 arch = 'x64'
-            if name_array[3] == 'x86':
+            if name_array[2] == 'x86':
                 arch = 'x32'
             type = name_array[3].capitalize() + ' ' + arch
         elif 'fedora' in name.lower():
@@ -77,6 +77,15 @@ def index(request):
             if name_array[3] == 'i686':
                 arch = 'x32'
             type = name_array[1] + ' ' + name_array[2].capitalize() + ' ' + arch
+        elif 'raspbian' in name.lower():
+            name_array = name.split('-')
+            distro = name_array[3].capitalize()
+            try:
+                version = re.sub(".zip", "", name_array[4] + ' ' + name_array[5]).capitalize()
+            except:
+                version = re.sub(".zip", "", name_array[4]).capitalize()
+            arch = 'ARM'
+            type = arch
         else:
             name_array = name.split('-')
             distro = name_array[0].capitalize()
@@ -123,12 +132,12 @@ def newdistro(request):
             links = filter(lambda x:x.endswith(".torrent"), data)
             torrent_links = [link + l if 'http' not in l else l for l in links]
             torrent_links = [l for l in torrent_links if not any(ex.lower() in l.lower() for ex in exclude_list)]
+            print torrent_links
             for torrent in torrent_links:
-                filedl = requests.get(torrent, stream=True, verify=False)
                 with open('/data/downloads/torrents/' + torrent.split('/')[-1], 'wb') as f:
-                    for chunk in filedl.iter_content(chunk_size=1024): 
-                        if chunk: # filter out keep-alive new chunks
-                            f.write(chunk)
+                    response = requests.get(torrent, stream=True, verify=False)
+                    for block in response.iter_content(1024): 
+                        f.write(block)
 
             return HttpResponseRedirect(reverse('newdistro'))
   
@@ -154,6 +163,7 @@ def currentdistro(request):
             links = filter(lambda x:x.endswith(".torrent"), data)
             torrent_links = [link + l if 'http' not in l else l for l in links]
             torrent_links = [l for l in torrent_links if not any(ex.lower() in l.lower() for ex in exclude_list)]
+            print torrent_links
             for torrent in torrent_links:
                 filedl = requests.get(torrent, stream=True, verify=False)
                 with open('/data/downloads/torrents/' + torrent.split('/')[-1], 'wb') as f:
