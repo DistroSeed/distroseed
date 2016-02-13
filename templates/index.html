@@ -1,63 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <header class="header dark-bg">
-      <div class="toggle-nav">
-        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
-      </div>
-
-      <!--logo start-->
-      <a href="/" class="logo">DistroSeed <span class="lite">Dash</span></a>
-      <!--logo end-->
-
-      <div class="top-nav notification-row">
-        <!-- notificatoin dropdown start-->
-        <ul class="nav pull-right top-menu">
-          <!-- user login dropdown start-->
-          <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-
-              <span class="username">{{username}}</span>
-              <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu extended logout">
-              <li class="eborder-top">
-                <a href="/"><i class="fa fa-home"></i> Home</a>
-              </li>
-              <li>
-                <a href="/newdistro/"><i class="fa fa-plus"></i> Add Distro</a>
-              </li>
-              <li>
-                <a href="/timeline/"><i class="fa fa-history"></i> Timeline</a>
-              </li>
-              <li>
-                <a href="/settings/"><i class="fa fa-cogs"></i> Settings</a>
-              </li>
-              <li>
-                <a href="/logs/"><i class="fa fa-book"></i> Logs</a>
-              </li>
-              <li>
-                <a href="https://github.com/DistroSeed/DistroSeed-Dashboard/wiki"><i class="fa fa-life-ring"></i> Wiki</a>
-              </li>
-              <li>
-                <a href="https://github.com/DistroSeed/DistroSeed-Dashboard/issues"><i class="fa fa-bug"></i> Bug Report</a>
-              </li>
-              <li>
-                <a href="/logout/"><i class="fa fa-sign-out"></i> Log Out</a>
-              </li>
-            </ul>
-          </li>
-          <!-- user login dropdown end -->
-        </ul>
-        <!-- notification dropdown end-->
-      </div>
-    </header>
-    <!--header end-->
-
-    <!--main content start-->
-
     <section class="wrapper">
-      <!--overview start-->
-
       <!-- start of nav top breadcrumb-->
       <div class="row">
         <div class="col-lg-12">

@@ -3,6 +3,8 @@
     <!--main content start-->
 
     <section class="wrapper">
+      <!--overview start-->
+
       <!-- start of nav top breadcrumb-->
       <div class="row">
         <div class="col-lg-12">
@@ -15,11 +17,14 @@
 
       <!-- End of breadcrumb -->
 
-      <div class="row">
+{% for form in forms %}
+    {% if forloop.first %}
+    <div class="row">
+    {% endif %}
         <div class="col-lg-4 col-md-4">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h2><i class="fa fa-flag-o red"></i><strong>Add Distro</strong></h2>
+              <h2><i class="fa fa-flag-o red"></i><strong>{{form.name.value}} Options</strong></h2>
             </div>
             <div class="panel-body">
                 <form method="POST">
@@ -32,8 +37,14 @@
                 </form>
             </div>
           </div>
-        </div><!--/col-->
-       </div><!--/row-->
-    </section>
+        </div>
+    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+    </div>
+    <div class="row">
+    {% endif %}
+    {% if forloop.last %}
+    </div>
+    {% endif %}
+{% endfor %}
 
 {% endblock %}
