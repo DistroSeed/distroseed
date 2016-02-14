@@ -2,6 +2,7 @@ import re
 import requests
 import transmissionrpc
 from hurry.filesize import size
+from urlparse import urljoin
 from django.db.models import *
 from django.template import Context, loader, RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, render, redirect
@@ -67,16 +68,16 @@ def index(request):
             name_array = name.split('-')
             distro = name_array[0]
             try:
-                version = name_array[4] + ' ' + name_array[5]
+                version = re.sub("_", " ", name_array[4] + ' ' + name_array[5])
             except:
-                version = name_array[4]
+                version = re.sub("_", " ", name_array[4])
             if name_array[3] == 'x86_64':
                 arch = 'x64'
             if name_array[3] == 'x86':
                 arch = 'x32'
             if name_array[3] == 'i686':
                 arch = 'x32'
-            type = name_array[1] + ' ' + name_array[2].capitalize() + ' ' + arch
+            type = name_array[1] + ' ' + re.sub("_", " ", name_array[2].capitalize()).title() + ' ' + arch
         elif 'raspbian' in name.lower():
             name_array = name.split('-')
             distro = name_array[3].capitalize()
@@ -86,6 +87,113 @@ def index(request):
                 version = re.sub(".zip", "", name_array[4]).capitalize()
             arch = 'ARM'
             type = arch
+        elif 'archlinux' in name.lower():
+            name_array = name.split('-')
+            distro = name_array[0].capitalize()
+            version = name_array[1]
+            if name_array[2] == 'x86_64':
+                arch = 'x64'
+            if name_array[2] == 'amd64':
+                arch = 'x64'
+            if name_array[2] == 'x86':
+                arch = 'x32'
+            if name_array[2] == 'i686':
+                arch = 'x32'
+            if name_array[2] == 'dual':
+                arch = 'x32 & x64'
+            type = arch
+        elif 'kali' in name.lower():
+            name_array = name.split('-')
+            distro = name_array[0].capitalize()
+            v = name_array[2]
+            try:
+                float(v)
+                version = name_array[2]
+                arch_item = name_array[3]               
+            except ValueError:
+                version = name_array[3] + ' ' + name_array[2]
+                arch_item = name_array[4]        
+            if arch_item == 'x86_64':
+                arch = 'x64'
+            if arch_item == 'amd64':
+                arch = 'x64'
+            if arch_item == 'x86':
+                arch = 'x32'
+            if arch_item == 'i686':
+                arch = 'x32'
+            if arch_item == 'i386':
+                arch = 'x32'
+            if arch_item == 'armel':
+                arch = 'ARMEL'
+            if arch_item == 'armhf':
+                arch = 'ARMHF'
+            type = arch
+        elif 'slackware' in name.lower():
+            name_array = name.split('-')
+            distro = re.sub("64", "", name_array[0].capitalize())
+            version = name_array[1]
+            if '64' in name_array[0]:
+                arch = 'x64'
+            else:
+                arch = 'x32'
+            type = 'Install'
+        elif 'debian' in name.lower():
+            name_array = name.split('-')
+            distro = name_array[0].capitalize()
+            e2 = name_array[1]
+            if 'update' in e2:
+                version = name_array[2]
+                if name_array[3] == 'x86_64':
+                    arch = 'x64'
+                if name_array[3] == 'amd64':
+                    arch = 'x64'
+                if name_array[3] == 'x86':
+                    arch = 'x32'
+                if name_array[3] == 'i686':
+                    arch = 'x32'
+                if name_array[3] == 'dual':
+                    arch = 'x32 & x64'
+                type = name_array[1].title() + ' ' + name_array[4] + ' ' + name_array[5] + ' ' + arch
+            else:
+                version = name_array[1]
+                if name_array[2] == 'x86_64':
+                    arch = 'x64'
+                if name_array[2] == 'amd64':
+                    arch = 'x64'
+                if name_array[2] == 'x86':
+                    arch = 'x32'
+                if name_array[2] == 'i686':
+                    arch = 'x32'
+                if name_array[2] == 'dual':
+                    arch = 'x32 & x64'
+                type = name_array[3] + ' ' + name_array[4] + ' ' + arch
+        elif 'mint' in name.lower():
+            name_array = name.split('-')
+            distro = 'Linux Mint'
+            if name_array[3] == '64bit':
+                arch = 'x64'
+            if name_array[3] == '32bit':
+                arch = 'x86'
+            if len(name_array) == 5:
+                version = name_array[1] + ' ' + name_array[4].title()
+            else:
+                version = name_array[1]              
+            type = name_array[2].title() + ' ' + arch
+        elif 'opensuse' in name.lower():
+            name_array = name.split('-')
+            distro = name_array[0].capitalize()
+            version = name_array[1] + ' ' + name_array[2]
+            if name_array[4] == 'x86_64':
+                arch = 'x64'
+            if name_array[4] == 'amd64':
+                arch = 'x64'
+            if name_array[4] == 'x86':
+                arch = 'x32'
+            if name_array[4] == 'i686':
+                arch = 'x32'
+            if name_array[4] == 'dual':
+                arch = 'x32 & x64'
+            type = name_array[3] + ' ' + arch
         else:
             name_array = name.split('-')
             distro = name_array[0].capitalize()
@@ -130,9 +238,8 @@ def newdistro(request):
             r = requests.get(link, verify=False)
             data = [x[1] for x in re.findall('(src|href)="(\S+)"',r.content)]
             links = filter(lambda x:x.endswith(".torrent"), data)
-            torrent_links = [link + l if 'http' not in l else l for l in links]
+            torrent_links = [urljoin(link,l) if 'http' not in l else l for l in links]
             torrent_links = [l for l in torrent_links if not any(ex.lower() in l.lower() for ex in exclude_list)]
-            print torrent_links
             for torrent in torrent_links:
                 with open('/data/downloads/torrents/' + torrent.split('/')[-1], 'wb') as f:
                     response = requests.get(torrent, stream=True, verify=False)
@@ -161,9 +268,8 @@ def currentdistro(request):
             r = requests.get(link, verify=False)
             data = [x[1] for x in re.findall('(src|href)="(\S+)"',r.content)]
             links = filter(lambda x:x.endswith(".torrent"), data)
-            torrent_links = [link + l if 'http' not in l else l for l in links]
+            torrent_links = [urljoin(link,l) if 'http' not in l else l for l in links]
             torrent_links = [l for l in torrent_links if not any(ex.lower() in l.lower() for ex in exclude_list)]
-            print torrent_links
             for torrent in torrent_links:
                 filedl = requests.get(torrent, stream=True, verify=False)
                 with open('/data/downloads/torrents/' + torrent.split('/')[-1], 'wb') as f:
