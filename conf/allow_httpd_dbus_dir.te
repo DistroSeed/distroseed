@@ -1,0 +1,13 @@
+
+module allow_httpd_dbus_dir 1.0;
+
+require {
+	type httpd_t;
+	type init_t;
+	class dbus send_msg;
+	class dir search;
+}
+
+#============= httpd_t ==============
+allow httpd_t init_t:dbus send_msg;
+allow httpd_t init_t:dir search;

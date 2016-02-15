@@ -41,122 +41,36 @@
         <div class="tab-content">
           <div id="torrent" class="tab-pane active">
             <!-- 12 across below tabs -->
-            <form class="form-horizontal " action="#">
+            <form class="form-horizontal " method="POST">
+	      {{ form.errors }}
+              {% csrf_token %}
               <div class="form-group">
                 <div class="col-sm-1">
                 </div>
               </div>
+              {% for field in form %}
+                <div class="form-group">
+                  <label class="control-label col-sm-2">{{field.label}}:</label>
+                    <div class="col-sm-1">
+                      <div class="input-prepend">
+                        {{ field }}
+                      </div>
+                    </div>
+                </div>
+              {% endfor %}
               <div class="form-group">
-                <label class="control-label col-sm-2">Start / Stop Torrents:</label>
-                <!-- Switch Button -->
-                <div class="col-sm-6">
-                  <div class="row m-bot10">
-                    <div class="col-xs-1 text-center">
-                      <div class="switch switch-square"
-                      data-on-label="<i class=' icon-ok'></i>"
-                      data-off-label="<i class='icon-remove'></i>">
-                      <input type="checkbox" />
+                <label class="control-label col-sm-2"></label>
+                  <div class="col-sm-4">
+                    <div class="col-sm-1">
+                      <button class="btn btn-primary">Save</button>
                     </div>
                   </div>
-                </div>
               </div>
-              <!-- Close Switch Button -->
-            </div>
-            <div class="form-group">
-              <label class="control-label col-sm-2">Maximum Active Torrents #:</label>
-              <div class="col-sm-1">
-                <div class="input-prepend">
-                  <input id="reservation" type="text" class=" form-control" />
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-sm-2">Encrypt Torrent Traffic:</label>
-              <div class="btn-row col-sm-4">
-                <div class="btn-group">
-                  <button type="button" id="buttonselectnoencryption" class="btn btn-default">None</button>
-                  <button type="button" id="buttonselectpreferredencryption" class="btn btn-default">Preferred</button>
-                  <button type="button" id="buttonselectrequiredencryption" class="btn btn-default">Required</button>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-sm-2">Maximum Amount of Peers #:</label>
-              <div class="col-sm-1">
-                <div class="input-prepend">
-                  <input id="reservation" type="text" class=" form-control" />
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-sm-2">Use Blocklist</label>
-              <!-- Switch Button -->
-              <div class="col-sm-6">
-                <div class="row m-bot10">
-                  <div class="col-xs-1 text-center">
-                    <div class="switch switch-square"
-                    data-on-label="<i class=' icon-ok'></i>"
-                    data-off-label="<i class='icon-remove'></i>">
-                    <input type="checkbox" />
-                  </div>
-                </div>
-              </div>
-            </div> <!-- Switch Button Closed -->
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2">Block List URL:</label>
-            <div class="col-sm-4">
-              <div class="input-prepend">
-                <input id="reservation" type="text" class=" form-control" />
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2">Downloaded Directory:</label>
-            <div class="col-sm-4">
-              <div class="input-prepend">
-                <input id="reservation" type="text" class=" form-control" />
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2">Incomplete Directory:</label>
-            <div class="col-sm-4">
-              <div class="input-prepend">
-                <input id="reservation" type="text" class=" form-control" />
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2">Tranmission Logging Level:</label>
-            <div class="btn-row col-sm-4">
-              <div class="btn-group">
-                <button type="button" id="transmissionlogginglevelbuttonnone" class="btn btn-default">None</button>
-                <button type="button" id="transmissionlogginglevelbuttonerror" class="btn btn-default">Error</button>
-                <button type="button" id="transmissionlogginglevelbuttoninfo" class="btn btn-default">Info</button>
-                <button type="button" id="transmissionlogginglevelbuttondebug" class="btn btn-default">Debug</button>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2">Tranmission Logging Level:</label>
-            <div class="col-sm-4">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2"></label>
-            <div class="col-sm-4">
-              <div class="col-sm-1">
-                <button class="btn btn-primary">Save</button>
-              </div>
-            </div>
-          </div>
-          <br>
-          <!-- Close out page form -->
-        </form>
-        <!-- Close out Torrents pane -->
-      </div>
-      <!-- Close New Pane -->
+          </form>
+          <br />
+          <!-- Close out Torrents pane -->
+        </div>
+        <!-- Close New Pane -->
 
       <!-- Start New Pane -->
       <div id="storage" class="tab-pane">

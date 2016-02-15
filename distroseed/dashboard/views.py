@@ -1,5 +1,7 @@
 import re
+import os
 import requests
+import subprocess
 import transmissionrpc
 from hurry.filesize import size
 from urlparse import urljoin
@@ -11,7 +13,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django import forms
 from django.utils import timezone
-from .forms import AutoTorrentForm, NewAutoTorrentForm
+from .forms import AutoTorrentForm, NewAutoTorrentForm, TransmissionSettingForm
 from .models import *
 
 def auth_login(request):
@@ -292,7 +294,11 @@ def notifications(request):
     return render_to_response('notifications.html', {'username' : request.user,}, context_instance=RequestContext(request))
 
 def settings(request):
-    return render_to_response('settings.html', {'username' : request.user,}, context_instance=RequestContext(request))
+    status = ' '
+    if request.method == "POST":
+        status = subprocess.call(['systemctl', 'restart', 'transmission-daemon'])
+    form = TransmissionSettingForm()
+    return render_to_response('settings.html', {'username' : request.user, 'form': form, 'test': status,}, context_instance=RequestContext(request))
 
 def timeline(request):
     return render_to_response('timeline.html', {'username' : request.user,}, context_instance=RequestContext(request))

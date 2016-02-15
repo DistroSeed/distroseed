@@ -20,7 +20,7 @@ Copyright 2010-2016
 
 ### Setup Guide (incomplete) ###
 <code>yum install -y epel-release</code><br />
-<code>yum install -y httpd tranmission-cli transmission-daemon transmission python-pip git nano mod_wsgi python-requests python-BeautifulSoup</code><br />
+<code>yum install -y httpd tranmission-cli transmission-daemon transmission python-pip git nano mod_wsgi python-requests python-BeautifulSoup policycoreutils-python</code><br />
 <code>pip install --upgrade pip</code><br />
 <code>pip install django</code><br />
 <code>pip install transmissionrpc</code><br />
@@ -148,3 +148,21 @@ Copyright 2010-2016
 </pre></blockquote> 
 <code>sudo systemctl start transmission-daemon</code><br />
 <code>sudo setsebool -P httpd_can_network_connect on</code><br />
+<code>sudo nano /etc/polkit-1/localauthority/50-local.d/50-allow-apache-systemd.pkla</code><br />
+<blockquote>
+[restart]
+Identity=unix-user:apache
+Action=org.freedesktop.systemd1.manage-units
+ResultAny=yes
+
+[stop]
+Identity=unix-user:apache
+Action=org.freedesktop.systemd1.manage-units
+ResultAny=yes
+
+[start]
+Identity=unix-user:apache
+Action=org.freedesktop.systemd1.manage-units
+ResultAny=yes
+</blockquote><br />
+<code>semodule -i allow_httpd_systemctl.pp</code><br />
