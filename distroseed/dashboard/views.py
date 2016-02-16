@@ -1,5 +1,7 @@
 import re
 import os
+import ast
+import json
 import requests
 import subprocess
 import transmissionrpc
@@ -294,11 +296,21 @@ def notifications(request):
     return render_to_response('notifications.html', {'username' : request.user,}, context_instance=RequestContext(request))
 
 def settings(request):
-    status = ' '
     if request.method == "POST":
-        status = subprocess.call(['systemctl', 'restart', 'transmission-daemon'])
-    form = TransmissionSettingForm()
-    return render_to_response('settings.html', {'username' : request.user, 'form': form, 'test': status,}, context_instance=RequestContext(request))
+        form = TransmissionSettingForm(request.POST)
+        if form.is_valid():
+            model_instance = form.save(commit=False)
+            model_instance.save()
+            qs = json.dumps(ast.literal_eval(re.sub("_", "-", str(TransmissionSetting.objects.all()[:1].values()[0]))))
+            transmissionobj = json.loads(qs)
+            subprocess.call(['systemctl', 'stop', 'transmission-daemon'])
+            with open('/var/lib/transmission/.config/transmission-daemon/settings.json', 'wb') as f:
+                json.dump(transmissionobj, f, indent=4, sort_keys=True)
+            subprocess.call(['systemctl', 'start', 'transmission-daemon'])
+            
+    current_settings = TransmissionSetting.objects.all()[:1][0]
+    form = TransmissionSettingForm(None, instance=current_settings)
+    return render_to_response('settings.html', {'username' : request.user, 'form': form,}, context_instance=RequestContext(request))
 
 def timeline(request):
     return render_to_response('timeline.html', {'username' : request.user,}, context_instance=RequestContext(request))

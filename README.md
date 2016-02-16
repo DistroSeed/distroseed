@@ -165,4 +165,12 @@ Identity=unix-user:apache
 Action=org.freedesktop.systemd1.manage-units
 ResultAny=yes
 </blockquote><br />
+<code>cd /data/distroseed/conf</code><br />
+<code>semodule -i allow_httpd_dbus_dir.pp</code><br />
+<code>semodule -i allow_httpd_systemctl_execute_no_trans.pp</code><br />
+<code>semodule -i allow_httpd_systemctl_policykit.pp</code><br />
 <code>semodule -i allow_httpd_systemctl.pp</code><br />
+<code>semodule -i allow_httpd_systemctl_read.pp</code><br />
+<code>semodule -i allow_httpd_systemctl_start.pp</code><br />
+<code>semodule -i allow_httpd_write_var.pp</code><br />
+<code>chmod 770 /var/lib/transmission/.config/transmission-daemon/settings.json</code><br />
