@@ -173,4 +173,23 @@ ResultAny=yes<br />
 <code>semodule -i allow_httpd_systemctl_read.pp</code><br />
 <code>semodule -i allow_httpd_systemctl_start.pp</code><br />
 <code>semodule -i allow_httpd_write_var.pp</code><br />
-<code>chmod 770 /var/lib/transmission/.config/transmission-daemon/settings.json</code><br />
+<code>chmod 660 /var/lib/transmission/.config/transmission-daemon/settings.json</code><br />
+<code>nano /usr/lib/systemd/system/transmission-daemon.service</code><br />
+<blockquote><br />
+<br />
+[Unit]<br />
+Description=Transmission BitTorrent Daemon<br />
+After=network.target<br />
+<br />
+[Service]<br />
+User=transmission<br />
+Type=notify<br />
+ExecStart=/usr/bin/transmission-daemon -f --log-error<br />
+ExecReload=/bin/kill -s HUP $MAINPID<br />
+ExecStartPost=/bin/chmod 660 /var/lib/transmission/.config/transmission-daemon/settings.json<br />
+ExecStopPost=/bin/chmod 660 /var/lib/transmission/.config/transmission-daemon/settings.json<br />
+<br />
+[Install]<br />
+WantedBy=multi-user.target<br />
+</blockquote><br />
+<code>systemctl daemon-reload</code><br />
