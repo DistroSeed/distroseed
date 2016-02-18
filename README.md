@@ -150,20 +150,20 @@ Copyright 2010-2016
 <code>sudo setsebool -P httpd_can_network_connect on</code><br />
 <code>sudo nano /etc/polkit-1/localauthority/50-local.d/50-allow-apache-systemd.pkla</code><br />
 <blockquote>
-[restart]
-Identity=unix-user:apache
-Action=org.freedesktop.systemd1.manage-units
-ResultAny=yes
-
-[stop]
-Identity=unix-user:apache
-Action=org.freedesktop.systemd1.manage-units
-ResultAny=yes
-
-[start]
-Identity=unix-user:apache
-Action=org.freedesktop.systemd1.manage-units
-ResultAny=yes
+[restart]<br />
+Identity=unix-user:apache<br />
+Action=org.freedesktop.systemd1.manage-units<br />
+ResultAny=yes<br />
+<br />
+[stop]<br />
+Identity=unix-user:apache<br />
+Action=org.freedesktop.systemd1.manage-units<br />
+ResultAny=yes<br />
+<br />
+[start]<br />
+Identity=unix-user:apache<br />
+Action=org.freedesktop.systemd1.manage-units<br />
+ResultAny=yes<br />
 </blockquote><br />
 <code>cd /data/distroseed/conf</code><br />
 <code>semodule -i allow_httpd_dbus_dir.pp</code><br />
