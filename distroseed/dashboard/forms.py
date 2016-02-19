@@ -27,6 +27,7 @@ class NewAutoTorrentForm(forms.ModelForm):
         fields = ('name', 'url', 'excludes')
 
 class TransmissionSettingForm(forms.ModelForm):
+    id = forms.IntegerField(widget=forms.HiddenInput)
     class Meta:
         model = TransmissionSetting
         fields = ('__all__')

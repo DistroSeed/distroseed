@@ -297,7 +297,8 @@ def notifications(request):
 
 def settings(request):
     if request.method == "POST":
-        form = TransmissionSettingForm(request.POST)
+        instance = TransmissionSetting.objects.get(id=request.POST['id'])
+        form = TransmissionSettingForm(request.POST, instance=instance)
         if form.is_valid():
             model_instance = form.save(commit=False)
             model_instance.save()
@@ -307,6 +308,7 @@ def settings(request):
             with open('/var/lib/transmission/.config/transmission-daemon/settings.json', 'wb') as f:
                 json.dump(transmissionobj, f, indent=4, sort_keys=True)
             subprocess.call(['systemctl', 'start', 'transmission-daemon'])
+        return HttpResponseRedirect(reverse('settings'))
             
     current_settings = TransmissionSetting.objects.all()[:1][0]
     form = TransmissionSettingForm(None, instance=current_settings)
