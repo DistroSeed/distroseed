@@ -82,3 +82,4 @@ class TransmissionSetting(models.Model):
     utp_enabled = models.BooleanField()
     watch_dir = models.CharField(max_length=200, blank=True)
     watch_dir_enabled = models.BooleanField()
+    open_file_limit = models.IntegerField(default=1024, blank=True)

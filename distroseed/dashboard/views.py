@@ -183,6 +183,15 @@ def index(request):
             else:
                 version = name_array[1]              
             type = name_array[2].title() + ' ' + arch
+        elif 'lmde' in name.lower():
+            name_array = name.split('-')
+            distro = 'Linux Mint'
+            if name_array[3] == '64bit':
+                arch = 'x64'
+            if name_array[3] == '32bit':
+                arch = 'x86'
+            version = name_array[1]
+            type = name_array[3].title() + ' ' + arch
         elif 'opensuse' in name.lower():
             name_array = name.split('-')
             distro = name_array[0].capitalize()
@@ -270,7 +279,7 @@ def currentdistro(request):
             link = AutoTorrent.objects.get(id=model_instance.id).url
             exclude_list = AutoTorrent.objects.get(id=model_instance.id).excludes.all().values_list('phrase', flat=True)
             r = requests.get(link, verify=False)
-            data = [x[1] for x in re.findall('(src|href)="(\S+)"',r.content)]
+            data = [x[1] for x in re.findall('(src|href|HREF|SRC)="(\S+)"',r.content)]
             links = filter(lambda x:x.endswith(".torrent"), data)
             torrent_links = [urljoin(link,l) if 'http' not in l else l for l in links]
             torrent_links = [l for l in torrent_links if not any(ex.lower() in l.lower() for ex in exclude_list)]
