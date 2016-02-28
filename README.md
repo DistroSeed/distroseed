@@ -7,6 +7,8 @@ DistroSeed is an automated assistant for finding, downloading, and managing Linu
 * Management of bandwidth allocations, storage limiters, and auto pruning of old torrents.
 * Feel good for supporting Linux distribution efforts.
 
+<img ref="https://i.imgur.com/PhU9sFI.jpg" />
+
 ### Take a Peak ###
 * [At our site](https://distroseed.com)
 
@@ -90,7 +92,7 @@ Copyright 2010-2016
     "blocklist-enabled": false, 
     "blocklist-url": "http://www.example.com/blocklist", 
     "cache-size-mb": 10, 
-    "dht-enabled": true, 
+    "dht-enabled": false, 
     "download-dir": "/data/downloads/complete", 
     "download-queue-enabled": true, 
     "download-queue-size": 5, 
@@ -144,6 +146,7 @@ Copyright 2010-2016
     "utp-enabled": true, 
     "watch-dir": "/data/downloads/torrents", 
     "watch-dir-enabled": true
+    "open-file-limit": 10000, 
 }
 </pre></blockquote> 
 <code>sudo systemctl start transmission-daemon</code><br />
