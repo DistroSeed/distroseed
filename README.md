@@ -34,8 +34,7 @@ Copyright 2010-2016
 <blockquote>
 <pre>
 &lt;VirtualHost *:80&gt;
-        ServerName distroseed.pingnattack.com
-        ServerAlias distroseed
+        ServerName distroseed
         WSGIScriptAlias / /data/distroseed/distroseed/wsgi.py
         &lt;Directory "/data/distroseed/distroseed/"&gt;
                 Order deny,allow
