@@ -27,7 +27,7 @@ Copyright 2010-2016
 <code>pip install django</code><br />
 <code>pip install transmissionrpc</code><br />
 <code>pip install hurry.filesize</code><br />
-<code>echo '127.0.0.1   distroseed distroseed.pingnattack.com' >> /etc/hosts</code><br />
+<code>echo '127.0.0.1   distroseed' >> /etc/hosts</code><br />
 <code>mkdir /data</code><br />
 <code>rm -f /etc/httpd/conf.d/*</code><br />
 <code>nano /etc/httpd/conf.d/distroseed.conf</code><br />
