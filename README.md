@@ -78,7 +78,8 @@ Copyright 2010-2016
 <code>chmod -R g+rwxs /data/downloads/torrents</code><br />
 <code>systemctl stop transmission-daemon</code><br />
 <code>nano /var/lib/transmission/.config/transmission-daemon/settings.json</code><br />
-<blockquote><pre>
+<blockquote>
+<pre>
 {
     "alt-speed-down": 50, 
     "alt-speed-enabled": false, 
@@ -148,25 +149,28 @@ Copyright 2010-2016
     "watch-dir-enabled": true
     "open-file-limit": 10000, 
 }
-</pre></blockquote> 
+</pre>
+</blockquote> 
 <code>sudo systemctl start transmission-daemon</code><br />
 <code>sudo setsebool -P httpd_can_network_connect on</code><br />
 <code>sudo nano /etc/polkit-1/localauthority/50-local.d/50-allow-apache-systemd.pkla</code><br />
 <blockquote>
-[restart]<br />
-Identity=unix-user:apache<br />
-Action=org.freedesktop.systemd1.manage-units<br />
-ResultAny=yes<br />
-<br />
-[stop]<br />
-Identity=unix-user:apache<br />
-Action=org.freedesktop.systemd1.manage-units<br />
-ResultAny=yes<br />
-<br />
-[start]<br />
-Identity=unix-user:apache<br />
-Action=org.freedesktop.systemd1.manage-units<br />
-ResultAny=yes<br />
+<pre>
+[restart]
+Identity=unix-user:apache
+Action=org.freedesktop.systemd1.manage-units
+ResultAny=yes
+
+[stop]
+Identity=unix-user:apache
+Action=org.freedesktop.systemd1.manage-units
+ResultAny=yes
+
+[start]
+Identity=unix-user:apache
+Action=org.freedesktop.systemd1.manage-units
+ResultAny=yes
+</pre>
 </blockquote><br />
 <code>cd /data/distroseed/conf</code><br />
 <code>semodule -i allow_httpd_dbus_dir.pp</code><br />
@@ -178,21 +182,22 @@ ResultAny=yes<br />
 <code>semodule -i allow_httpd_write_var.pp</code><br />
 <code>chmod 660 /var/lib/transmission/.config/transmission-daemon/settings.json</code><br />
 <code>nano /usr/lib/systemd/system/transmission-daemon.service</code><br />
-<blockquote><br />
-<br />
-[Unit]<br />
-Description=Transmission BitTorrent Daemon<br />
-After=network.target<br />
-<br />
-[Service]<br />
-User=transmission<br />
-Type=notify<br />
-ExecStart=/usr/bin/transmission-daemon -f --log-error<br />
-ExecReload=/bin/kill -s HUP $MAINPID<br />
-ExecStartPost=/bin/chmod 660 /var/lib/transmission/.config/transmission-daemon/settings.json<br />
-ExecStopPost=/bin/chmod 660 /var/lib/transmission/.config/transmission-daemon/settings.json<br />
-<br />
-[Install]<br />
-WantedBy=multi-user.target<br />
+<blockquote>
+<pre>
+[Unit]
+Description=Transmission BitTorrent Daemon
+After=network.target
+
+[Service]
+User=transmission
+Type=notify
+ExecStart=/usr/bin/transmission-daemon -f --log-error
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStartPost=/bin/chmod 660 /var/lib/transmission/.config/transmission-daemon/settings.json
+ExecStopPost=/bin/chmod 660 /var/lib/transmission/.config/transmission-daemon/settings.json
+
+[Install]
+WantedBy=multi-user.target
+</pre>
 </blockquote><br />
 <code>systemctl daemon-reload</code><br />
