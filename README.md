@@ -7,7 +7,7 @@ DistroSeed is an automated assistant for finding, downloading, and managing Linu
 * Management of bandwidth allocations, storage limiters, and auto pruning of old torrents.
 * Feel good for supporting Linux distribution efforts.
 
-<img ref="https://i.imgur.com/PhU9sFI.jpg" />
+<img src="https://i.imgur.com/PhU9sFI.jpg" />
 
 ### Take a Peak ###
 * [At our site](https://distroseed.com)
