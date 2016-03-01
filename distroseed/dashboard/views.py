@@ -192,6 +192,15 @@ def index(request):
                 arch = 'x86'
             version = name_array[1]
             type = name_array[3].title() + ' ' + arch
+        elif 'tails' in name.lower():
+            name_array = name.split('-')
+            distro = 'Tails'
+            if name_array[1] == 'amd64':
+                arch = 'x64'
+            if name_array[1] == 'i386':
+                arch = 'x86'
+            version = name_array[2]
+            type = 'Live CD'
         elif 'opensuse' in name.lower():
             name_array = name.split('-')
             distro = name_array[0].capitalize()
