@@ -22,6 +22,7 @@ Copyright 2010-2016
 
 ### Setup Guide (incomplete) ###
 <code>bash <(curl -s https://raw.githubusercontent.com/DistroSeed/distroseed/master/conf/installer.sh)</code><br />
+* Default username/password: Admin/admin12345
 
 ### TODOs ###
 * Setup automatic refresh of torrent links
