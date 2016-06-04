@@ -1,6 +1,12 @@
 # DistroSeed-Dashboard
 DistroSeed is an automated assistant for finding, downloading, and managing Linux Distributions through the Transmission torrent application.
 
+.. image:: https://github.com/DistroSeed/distroseed/blob/master/media/images/ScreenshotSamples/distroseed%20dash.PNG
+    :alt: Distro Dashboard
+    :width: 1000
+    :height: 700
+    :align: center
+
 ### Features Include: ###
 * Great looking dashboard and management interface.
 * Automated handling of Linux distributions leveraging DistroWatch tracking information.
