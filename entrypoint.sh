@@ -17,7 +17,7 @@ touch $CONFIG_DIR/settings.json
 
 # Start Transmission Daemon in the background
 echo "Starting Transmission Daemon..."
-transmission-daemon --config-dir $CONFIG_DIR --foreground &
+transmission-daemon --log-level=debug --config-dir $CONFIG_DIR --foreground &
 
 # Wait for Transmission to be ready
 sleep 5
