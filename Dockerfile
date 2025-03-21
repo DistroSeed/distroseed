@@ -28,6 +28,7 @@ ENV PYTHONUNBUFFERED=1
 # Copy application files
 RUN mkdir -p /data/torrents/downloads
 RUN mkdir -p /data/torrents/incomplete
+RUN mkdir -p /data/torrents/torrents
 RUN chmod -R 777 /data/
 COPY conf/settings.json /etc/transmission-daemon/settings.json
 
@@ -38,8 +39,6 @@ COPY distroseed/ /app/distroseed/
 COPY entrypoint.sh /app/
 RUN mkdir /app/scripts
 COPY scripts/ /app/scripts/
-RUN mkdir /app/torrents
-COPY torrents/ /app/torrents/
 
 # Set timezone to EST
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
