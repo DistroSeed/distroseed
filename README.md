@@ -22,3 +22,25 @@ DistroSeed is an automated assistant for finding, downloading, and managing Linu
 * Finish setup script
 * Allow delete of links from edit distro page
 * Change username and password from settings page
+
+### Setup Notes ###
+#### Setup your environmental variables
+```
+cp env.example .env
+cd scripts
+./gen_secret_key.sh
+# copy/paste string to .env
+nano .env
+```
+#### NOTE: you can use the transmission built-in or setup yor own by pointing to and existing transmission server
+
+#### build the docker image
+```
+./build.sh
+```
+
+#### run container
+#### NOTE: if you use the internal transmission-daemon in the container, you have to manually port forward 51414
+```
+./run.sh
+```
