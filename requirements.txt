@@ -1,0 +1,16 @@
+asgiref==3.8.1
+beautifulsoup4==4.13.3
+certifi==2025.1.31
+charset-normalizer==3.4.1
+Django==5.1.7
+gunicorn==23.0.0
+hurry.filesize==0.9
+idna==3.10
+requests==2.32.3
+setuptools==76.1.0
+six==1.17.0
+soupsieve==2.6
+sqlparse==0.5.3
+transmissionrpc==0.11
+typing_extensions==4.12.2
+urllib3==2.3.0

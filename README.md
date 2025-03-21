@@ -1,7 +1,7 @@
 # DistroSeed-Dashboard
 DistroSeed is an automated assistant for finding, downloading, and managing Linux Distributions through the Transmission torrent application.
 
-<img src="https://github.com/DistroSeed/distroseed/blob/master/media/images/ScreenshotSamples/distroseed%20dash.PNG"/>
+<img src="img/distro_seed_dash.png"/>
 
 ### Features Include: ###
 * Great looking dashboard and management interface.
@@ -9,22 +9,13 @@ DistroSeed is an automated assistant for finding, downloading, and managing Linu
 * Management of bandwidth allocations, storage limiters, and auto pruning of old torrents.
 * Feel good for supporting Linux distribution efforts.
 
-<img src="https://i.imgur.com/PhU9sFI.jpg" />
+<img src="img/meme.jpg" />
 
 ### Take a Peak ###
 * [At our site](https://distroseed.com)
 
 ### Contributions ###
-* Co founded by Ian Norden and Leon Denard, primary contributors include Chris Neal and Scott Groveman.
-
-### License ###
-* [GNU GPL v3](http://www.gnu.org/licenses/gpl.html)
-Copyright 2010-2016
-
-
-### Setup Guide (incomplete) ###
-<code>bash <(curl -s https://raw.githubusercontent.com/DistroSeed/distroseed/master/conf/installer.sh)</code><br />
-* Default username/password: Admin/admin12345
+* Co founded by Ian Norden and Leon Denard
 
 ### TODOs ###
 * Setup automatic refresh of torrent links

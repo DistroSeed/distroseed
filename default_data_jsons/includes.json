@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "phrase": "amd64"
+    },
+    {
+        "id": 2,
+        "phrase": "i686"
+    },
+    {
+        "id": 3,
+        "phrase": "live"
+    },
+    {
+        "id": 4,
+        "phrase": "x86_64"
+    },
+    {
+        "id": 5,
+        "phrase": "aarch64"
+    },
+    {
+        "id": 6,
+        "phrase": "dvd"
+    },
+    {
+        "id": 7,
+        "phrase": "server"
+    },
+    {
+        "id": 8,
+        "phrase": "desktop"
+    },
+    {
+        "id": 9,
+        "phrase": "xfce"
+    },
+    {
+        "id": 10,
+        "phrase": "i3"
+    },
+    {
+        "id": 11,
+        "phrase": "kde"
+    },
+    {
+        "id": 12,
+        "phrase": "mate"
+    },
+    {
+        "id": 13,
+        "phrase": "None"
+    },
+    {
+        "id": 14,
+        "phrase": "workstation"
+    }
+]

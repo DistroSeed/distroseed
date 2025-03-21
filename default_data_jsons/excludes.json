@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "phrase": "None"
+    },
+    {
+        "id": 2,
+        "phrase": "aarch64"
+    },
+    {
+        "id": 3,
+        "phrase": "osb"
+    },
+    {
+        "id": 4,
+        "phrase": "ppc64"
+    },
+    {
+        "id": 5,
+        "phrase": "s390x"
+    },
+    {
+        "id": 6,
+        "phrase": "beta"
+    }
+]

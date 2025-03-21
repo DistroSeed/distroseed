@@ -4,16 +4,35 @@ from django.db import models
 class Excludes(models.Model):
     phrase = models.CharField(max_length=300)
 
-    def __unicode__(self):
-        return "%s" % unicode(self.phrase)
+    def __str__(self):
+        return f"{self.phrase}"
+
+    class Meta:
+        verbose_name = 'Exclusions'
+        verbose_name_plural = 'Exclusions'
+
+class Includes(models.Model):
+    phrase = models.CharField(max_length=300)
+
+    def __str__(self):
+        return f"{self.phrase}"
+
+    class Meta:
+        verbose_name = 'Inclusions'
+        verbose_name_plural = 'Inclusions'
 
 class AutoTorrent(models.Model):
     name = models.CharField(max_length=200, unique=True)
     url = models.URLField(max_length=300)
-    excludes = models.ManyToManyField(Excludes,blank=True)
+    excludes = models.ManyToManyField(Excludes, blank=True)
+    includes = models.ManyToManyField(Includes, blank=True)
 
-    def __unicode__(self):
-        return "%s" % unicode(self.name)
+    def __str__(self):
+        return f"{self.name}"
+    
+    class Meta:
+        verbose_name = 'Automatically Torrent'
+        verbose_name_plural = 'Automatically Torrent'
 
 class TransmissionSetting(models.Model):
     alt_speed_down = models.IntegerField(blank=True)
@@ -30,6 +49,8 @@ class TransmissionSetting(models.Model):
     cache_size_mb = models.IntegerField(blank=True)
     dht_enabled = models.BooleanField()
     download_dir = models.CharField(max_length=200, blank=True)
+    download_limit = models.IntegerField(blank=True)
+    download_limit_enabled = models.IntegerField(blank=True)
     download_queue_enabled = models.BooleanField()
     download_queue_size = models.IntegerField(blank=True)
     encryption = models.IntegerField(blank=True)
@@ -38,6 +59,7 @@ class TransmissionSetting(models.Model):
     incomplete_dir = models.CharField(max_length=200, blank=True)
     incomplete_dir_enabled = models.BooleanField()
     lpd_enabled = models.BooleanField()
+    max_peers_global = models.IntegerField(blank=True)
     message_level = models.IntegerField(blank=True)
     peer_congestion_algorithm = models.CharField(max_length=200, blank=True)
     peer_id_ttl_hours = models.IntegerField(blank=True)
@@ -51,7 +73,7 @@ class TransmissionSetting(models.Model):
     pex_enabled = models.BooleanField()
     port_forwarding_enabled = models.BooleanField()
     preallocation = models.IntegerField(blank=True)
-    prefetch_enabled = models.IntegerField(blank=True)
+    prefetch_enabled = models.BooleanField()
     queue_stalled_enabled = models.BooleanField()
     queue_stalled_minutes = models.IntegerField(blank=True)
     ratio_limit = models.IntegerField(blank=True)
@@ -60,6 +82,8 @@ class TransmissionSetting(models.Model):
     rpc_authentication_required = models.BooleanField()
     rpc_bind_address = models.GenericIPAddressField()
     rpc_enabled = models.BooleanField()
+    rpc_host_whitelist = models.CharField(max_length=200, blank=True)
+    rpc_host_whitelist_enabled = models.BooleanField()
     rpc_password = models.CharField(max_length=200, blank=True)
     rpc_port = models.IntegerField(blank=True)
     rpc_url = models.CharField(max_length=200, blank=True)
@@ -78,8 +102,16 @@ class TransmissionSetting(models.Model):
     start_added_torrents = models.BooleanField()
     trash_original_torrent_files = models.BooleanField()
     umask = models.IntegerField(blank=True)
+    upload_limit = models.IntegerField(blank=True)
+    upload_limit_enabled = models.IntegerField(blank=True)
     upload_slots_per_torrent = models.IntegerField(blank=True)
     utp_enabled = models.BooleanField()
     watch_dir = models.CharField(max_length=200, blank=True)
     watch_dir_enabled = models.BooleanField()
-    open_file_limit = models.IntegerField(default=1024, blank=True)
+
+    def __str__(self):
+        return f"{self.bind_address_ipv4}"
+
+    class Meta:
+        verbose_name = 'Transmission Settings'
+        verbose_name_plural = 'Transmission Settings'

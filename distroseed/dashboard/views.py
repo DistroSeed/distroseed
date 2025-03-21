@@ -1,21 +1,19 @@
 import re
-import os
 import ast
 import json
 import requests
 import subprocess
 import transmissionrpc
+from bs4 import BeautifulSoup
 from hurry.filesize import size
-from urlparse import urljoin
+from urllib.parse import urljoin
 from django.db.models import *
-from django.template import Context, loader, RequestContext
-from django.shortcuts import render_to_response, get_object_or_404, render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from django import forms
-from django.utils import timezone
-from .forms import AutoTorrentForm, NewAutoTorrentForm, TransmissionSettingForm
+from django.http import HttpResponseRedirect, JsonResponse
+from django.urls import reverse
+from django.conf import settings
+from .forms import AutoTorrentForm, NewAutoTorrentForm, TransmissionSettingForm, ExcludesForm, IncludesForm,DeletePhraseForm
 from .models import *
 
 def auth_login(request):
@@ -38,7 +36,12 @@ def auth_logout(request):
 
 def index(request):
     torrents = []
-    tc = transmissionrpc.Client('127.0.0.1', port=9091)
+    tc = transmissionrpc.Client(
+        settings.TRANSMISSION_HOST,
+        port=settings.TRANSMISSION_PORT,
+        user=settings.TRANSMISSION_USER,
+        password=settings.TRANSMISSION_PASSWORD
+    )
     session_stats = tc.session_stats()
     cumulative_stats = session_stats.cumulative_stats
     uploaded = size(cumulative_stats['uploadedBytes'])
@@ -49,192 +52,103 @@ def index(request):
     current_torrents = tc.get_torrents()
     for t in current_torrents:
         percent = t.progress
-        name = t.name.replace('.iso','').replace('.img','')
-        if 'ubuntu' in name:
-            name_array = name.split('-')
-            distro = name_array[0].capitalize()
-            version = name_array[1]
-            if name_array[3] == 'amd64':
-                arch = 'x64'
-            if name_array[3] == 'i386':
-                arch = 'x32'
-            type = name_array[2].capitalize() + ' ' + arch
+        name = t.name
+        distro = 'unknown'
+        version = 'unknown'
+        arch = 'unknown'
+        dist_type = 'unknown'
+        if 'ubuntu' in name.lower():
+            distro = "Ubuntu"
         elif 'centos' in name.lower():
-            name_array = name.split('-')
-            distro = name_array[0]
-            version = name_array[1]
-            if name_array[2] == 'x86_64':
-                arch = 'x64'
-            if name_array[2] == 'x86':
-                arch = 'x32'
-            type = name_array[3].capitalize() + ' ' + arch
+            distro = "CentOS"
         elif 'fedora' in name.lower():
-            name_array = name.split('-')
-            distro = name_array[0]
-            try:
-                version = re.sub("_", " ", name_array[4] + ' ' + name_array[5])
-            except:
-                version = re.sub("_", " ", name_array[4])
-            if name_array[3] == 'x86_64':
-                arch = 'x64'
-            if name_array[3] == 'x86':
-                arch = 'x32'
-            if name_array[3] == 'i686':
-                arch = 'x32'
-            type = name_array[1] + ' ' + re.sub("_", " ", name_array[2].capitalize()).title() + ' ' + arch
+            distro = "Fedora"
         elif 'raspbian' in name.lower():
-            name_array = name.split('-')
-            distro = name_array[3].capitalize()
-            try:
-                version = re.sub(".zip", "", name_array[4] + ' ' + name_array[5]).capitalize()
-            except:
-                version = re.sub(".zip", "", name_array[4]).capitalize()
-            arch = 'ARM'
-            type = arch
+            distro = "Raspbian"
         elif 'archlinux' in name.lower():
-            name_array = name.split('-')
-            distro = name_array[0].capitalize()
-            version = name_array[1]
-            if name_array[2] == 'x86_64':
-                arch = 'x64'
-            if name_array[2] == 'amd64':
-                arch = 'x64'
-            if name_array[2] == 'x86':
-                arch = 'x32'
-            if name_array[2] == 'i686':
-                arch = 'x32'
-            if name_array[2] == 'dual':
-                arch = 'x32 & x64'
-            type = arch
+            distro = "ArchLinux"
         elif 'kali' in name.lower():
-            name_array = name.split('-')
-            distro = name_array[0].capitalize()
-            v = name_array[2]
-            try:
-                float(v)
-                version = name_array[2]
-                arch_item = name_array[3]               
-            except ValueError:
-                version = name_array[3] + ' ' + name_array[2]
-                arch_item = name_array[4]        
-            if arch_item == 'x86_64':
-                arch = 'x64'
-            if arch_item == 'amd64':
-                arch = 'x64'
-            if arch_item == 'x86':
-                arch = 'x32'
-            if arch_item == 'i686':
-                arch = 'x32'
-            if arch_item == 'i386':
-                arch = 'x32'
-            if arch_item == 'armel':
-                arch = 'ARMEL'
-            if arch_item == 'armhf':
-                arch = 'ARMHF'
-            type = arch
+            distro = "Kali"
         elif 'slackware' in name.lower():
-            name_array = name.split('-')
-            distro = re.sub("64", "", name_array[0].capitalize())
-            version = name_array[1]
-            if '64' in name_array[0]:
-                arch = 'x64'
-            else:
-                arch = 'x32'
-            type = 'Install'
+            distro = "Slackware"
         elif 'debian' in name.lower():
-            name_array = name.split('-')
-            distro = name_array[0].capitalize()
-            e2 = name_array[1]
-            if 'update' in e2:
-                version = name_array[2]
-                if name_array[3] == 'x86_64':
-                    arch = 'x64'
-                if name_array[3] == 'amd64':
-                    arch = 'x64'
-                if name_array[3] == 'x86':
-                    arch = 'x32'
-                if name_array[3] == 'i686':
-                    arch = 'x32'
-                if name_array[3] == 'dual':
-                    arch = 'x32 & x64'
-                type = name_array[1].title() + ' ' + name_array[4] + ' ' + name_array[5] + ' ' + arch
-            else:
-                version = name_array[1]
-                if name_array[2] == 'x86_64':
-                    arch = 'x64'
-                if name_array[2] == 'amd64':
-                    arch = 'x64'
-                if name_array[2] == 'x86':
-                    arch = 'x32'
-                if name_array[2] == 'i686':
-                    arch = 'x32'
-                if name_array[2] == 'dual':
-                    arch = 'x32 & x64'
-                type = name_array[3] + ' ' + name_array[4] + ' ' + arch
-        elif 'mint' in name.lower():
-            name_array = name.split('-')
-            distro = 'Linux Mint'
-            if name_array[3] == '64bit':
-                arch = 'x64'
-            if name_array[3] == '32bit':
-                arch = 'x86'
-            if len(name_array) == 5:
-                version = name_array[1] + ' ' + name_array[4].title()
-            else:
-                version = name_array[1]              
-            type = name_array[2].title() + ' ' + arch
-        elif 'lmde' in name.lower():
-            name_array = name.split('-')
-            distro = 'Linux Mint'
-            if name_array[3] == '64bit':
-                arch = 'x64'
-            if name_array[3] == '32bit':
-                arch = 'x86'
-            version = name_array[1]
-            type = name_array[3].title() + ' ' + arch
+            distro = "Debian"
+        elif 'mint' in name.lower() or 'lmde' in name.lower():
+            distro = "Linux Mint"
         elif 'tails' in name.lower():
-            name_array = name.split('-')
-            distro = 'Tails'
-            if name_array[1] == 'amd64':
-                arch = 'x64'
-            if name_array[1] == 'i386':
-                arch = 'x86'
-            version = name_array[2]
-            type = 'Live CD'
+            distro = "Tails"
         elif 'opensuse' in name.lower():
-            name_array = name.split('-')
-            distro = name_array[0].capitalize()
-            version = name_array[1] + ' ' + name_array[2]
-            if name_array[4] == 'x86_64':
-                arch = 'x64'
-            if name_array[4] == 'amd64':
-                arch = 'x64'
-            if name_array[4] == 'x86':
-                arch = 'x32'
-            if name_array[4] == 'i686':
-                arch = 'x32'
-            if name_array[4] == 'dual':
-                arch = 'x32 & x64'
-            type = name_array[3] + ' ' + arch
-        else:
-            name_array = name.split('-')
-            distro = name_array[0].capitalize()
-            version = 'unknown'
-            arch = 'unknown'
-            type = 'unknown'
-
+            distro = "OpenSUSE"
+        # Arch statements
+        if 'x86_64' in name.lower():
+            arch = 'x64'
+        elif 'amd64' in name.lower():
+            arch = 'x64'
+        elif 'x86' in name.lower():
+            arch = 'x32'
+        elif 'i686' in name.lower():
+            arch = 'x32'
+        elif 'dual' in name.lower():
+            arch = 'x32 & x64'
+        elif 'i386' in name.lower():
+            arch = 'x32'
+        elif 'armel' in name.lower():
+            arch = 'ARMEL'
+        elif 'armhf' in name.lower():
+            arch = 'ARMHF'
+        elif '64bit' in name.lower():
+            arch = 'x64'
+        elif '32bit' in name.lower():
+            arch = 'x32'
+        # version grab
+        # Regular expression to extract versions
+        pattern = r'\d+\.\d+(\.\d+)?'
+        version_str = re.search(pattern, name.lower())
+        if version_str:
+            version = version_str.group()
+        if version == "unknown":
+            pattern = r'(\d+)$'
+            version_str = re.search(pattern, name.lower())
+            if version_str:
+                version = version_str.group()
+        # get distro type
+        if "desktop" in name.lower():
+            dist_type = "Desktop"
+        elif "server" in name.lower():
+            dist_type = "Server"
+        elif "live" in name.lower():
+            dist_type = "Live"
+        elif "everything" in name.lower():
+            dist_type = "Everything"
+        elif "netinst" in name.lower():
+            dist_type = "Network Installer"
+        elif "cinnamon" in name.lower():
+            dist_type = "Cinnamon"
+        elif "mate" in name.lower():
+            dist_type = "MATE"
+        elif "xfce" in name.lower():
+            dist_type = "Xfce"
+        elif "installer" in name.lower():
+            dist_type = "Installer"
+        elif "img" in name.lower():
+            dist_type = "IMG"
+        elif "dvd" in name.lower():
+            dist_type = "DVD"
+        elif "iso" in name.lower():
+            dist_type = "ISO"
         dic = {
             'name' : t.name,
             'distro' : distro,
             'version' : version,
-            'type' : type,
+            'type' : dist_type,
+            'arch' : arch,
             'size' : size(t.sizeWhenDone),
             'upload' : size(t.rateUpload),
             'download' : size(t.rateDownload),
             'percent' : percent,
         }
         torrents.append(dic)
-    return render_to_response('index.html', {
+    return render(request, 'index.html', {
         'username' : request.user, 
         'torrents' : torrents,
         'uploaded' : uploaded,
@@ -242,62 +156,47 @@ def index(request):
         'active_torrents' : active_torrents,
         'torrent_count' : torrent_count,
         'free_space' : free_space,
-    }, context_instance=RequestContext(request))
+    })
 
 def logs(request):
-    return render_to_response('logs.html', {'username' : request.user,}, context_instance=RequestContext(request))
-
-def newdistro(request):
-    if request.method == "POST":
-        form = NewAutoTorrentForm(request.POST)
-              
-        if form.is_valid():
-            model_instance = form.save(commit=False)
-            model_instance.save()
-            form.save_m2m()
-            link = AutoTorrent.objects.get(id=model_instance.id).url
-            exclude_list = AutoTorrent.objects.get(id=model_instance.id).excludes.all().values_list('phrase', flat=True)
-            r = requests.get(link, verify=False)
-            data = [x[1] for x in re.findall('(src|href)="(\S+)"',r.content)]
-            links = filter(lambda x:x.endswith(".torrent"), data)
-            torrent_links = [urljoin(link,l) if 'http' not in l else l for l in links]
-            torrent_links = [l for l in torrent_links if not any(ex.lower() in l.lower() for ex in exclude_list)]
-            for torrent in torrent_links:
-                with open('/data/downloads/torrents/' + torrent.split('/')[-1], 'wb') as f:
-                    response = requests.get(torrent, stream=True, verify=False)
-                    for block in response.iter_content(1024): 
-                        f.write(block)
-
-            return HttpResponseRedirect(reverse('newdistro'))
-  
-    form = NewAutoTorrentForm()
-    return render_to_response('newdistro.html', {
-        'username' : request.user,
-        'form' : form,
-    }, context_instance=RequestContext(request))
+    return render(request,'logs.html', {'username' : request.user})
 
 def currentdistro(request):
     if request.method == "POST":
         instance = AutoTorrent.objects.get(id=request.POST['id'])
         form = AutoTorrentForm(request.POST or None, instance=instance)
-              
         if form.is_valid():
             model_instance = form.save(commit=False)
             model_instance.save()
             form.save_m2m()
             link = AutoTorrent.objects.get(id=model_instance.id).url
             exclude_list = AutoTorrent.objects.get(id=model_instance.id).excludes.all().values_list('phrase', flat=True)
-            r = requests.get(link, verify=False)
-            data = [x[1] for x in re.findall('(src|href|HREF|SRC)="(\S+)"',r.content)]
-            links = filter(lambda x:x.endswith(".torrent"), data)
+            include_list = AutoTorrent.objects.get(id=model_instance.id).includes.all().values_list('phrase', flat=True)
+            response = requests.get(link, verify=False, timeout=30)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            links = [tag.get("href").strip() for tag in soup.find_all(href=True)]
+            sources = [tag.get("src").strip() for tag in soup.find_all(src=True)]
+            all_links = links + sources
+            links = filter(lambda x:x.strip().endswith(".torrent") or x.strip().startswith("magnet"), all_links)
             torrent_links = [urljoin(link,l) if 'http' not in l else l for l in links]
             torrent_links = [l for l in torrent_links if not any(ex.lower() in l.lower() for ex in exclude_list)]
-            for torrent in torrent_links:
-                filedl = requests.get(torrent, stream=True, verify=False)
-                with open('/data/downloads/torrents/' + torrent.split('/')[-1], 'wb') as f:
-                    for chunk in filedl.iter_content(chunk_size=1024): 
-                        if chunk: # filter out keep-alive new chunks
-                            f.write(chunk)
+            tmp_torrent_links = []
+            for torrent_link in torrent_links:
+                for include_phrase in include_list:
+                    if include_phrase.lower() in torrent_link.lower():
+                        tmp_torrent_links.append(torrent_link)
+            if tmp_torrent_links:
+                torrent_links = tmp_torrent_links
+            if torrent_links:
+                tc = transmissionrpc.Client(
+                    settings.TRANSMISSION_HOST,
+                    port=settings.TRANSMISSION_PORT,
+                    user=settings.TRANSMISSION_USER,
+                    password=settings.TRANSMISSION_PASSWORD
+                )
+                for torrent in torrent_links:
+                    print(torrent)
+                    _ = tc.add_torrent(torrent)
 
             return HttpResponseRedirect(reverse('currentdistro'))
   
@@ -305,32 +204,84 @@ def currentdistro(request):
     current_autotorrents = AutoTorrent.objects.all()
     for torrent in current_autotorrents:
         forms.append(AutoTorrentForm(None, instance=torrent))
-    return render_to_response('currentdistro.html', {
+    form = NewAutoTorrentForm()
+    return render(request,'currentdistro.html', {
         'username' : request.user,
-        'forms': forms
-    }, context_instance=RequestContext(request))
+        'forms': forms,
+        'form': form,
+    })
 
-def notifications(request):
-    return render_to_response('notifications.html', {'username' : request.user,}, context_instance=RequestContext(request))
-
-def settings(request):
+def tc_settings(request):
     if request.method == "POST":
         instance = TransmissionSetting.objects.get(id=request.POST['id'])
         form = TransmissionSettingForm(request.POST, instance=instance)
         if form.is_valid():
             model_instance = form.save(commit=False)
             model_instance.save()
-            qs = json.dumps(ast.literal_eval(re.sub("_", "-", str(TransmissionSetting.objects.all()[:1].values()[0]))))
+            qs = json.dumps(ast.literal_eval(re.sub("_", "-", str(TransmissionSetting.objects.last().values()))))
             transmissionobj = json.loads(qs)
             subprocess.call(['systemctl', 'stop', 'transmission-daemon'])
-            with open('/var/lib/transmission/.config/transmission-daemon/settings.json', 'wb') as f:
+            with open('/etc/transmission-daemon/settings.json', 'wb') as f:
                 json.dump(transmissionobj, f, indent=4, sort_keys=True)
             subprocess.call(['systemctl', 'start', 'transmission-daemon'])
         return HttpResponseRedirect(reverse('settings'))
             
-    current_settings = TransmissionSetting.objects.all()[:1][0]
+    current_settings = TransmissionSetting.objects.last()
     form = TransmissionSettingForm(None, instance=current_settings)
-    return render_to_response('settings.html', {'username' : request.user, 'form': form,}, context_instance=RequestContext(request))
+    return render(request,'settings.html', {'username' : request.user, 'form': form,})
 
-def timeline(request):
-    return render_to_response('timeline.html', {'username' : request.user,}, context_instance=RequestContext(request))
+def manage_phrases(request):
+    if request.method == "POST":
+        excludes_form = ExcludesForm(request.POST)
+        includes_form = IncludesForm(request.POST)
+        delete_form = DeletePhraseForm(request.POST)
+
+        if 'add_exclude' in request.POST and excludes_form.is_valid():
+            excludes_form.save()
+
+        if 'add_include' in request.POST and includes_form.is_valid():
+            includes_form.save()
+
+        if 'delete_phrase' in request.POST and delete_form.is_valid():
+            phrase_id = delete_form.cleaned_data['phrase_id']
+            model_type = request.POST.get('model_type')
+
+            if model_type == "excludes":
+                phrase = get_object_or_404(Excludes, id=phrase_id)
+            elif model_type == "includes":
+                phrase = get_object_or_404(Includes, id=phrase_id)
+            else:
+                phrase = None
+
+            if phrase:
+                phrase.delete()
+
+        return redirect('managephrases')  # Replace with the correct URL name
+    
+    else:
+        excludes_form = ExcludesForm()
+        includes_form = IncludesForm()
+        delete_form = DeletePhraseForm()
+        excludes_list = Excludes.objects.all()
+        includes_list = Includes.objects.all()
+    
+    return render(request, 'manage_phrases.html', {
+        'username' : request.user, 
+        'excludes_form': excludes_form,
+        'includes_form': includes_form,
+        'delete_form': delete_form,
+        'excludes_list': excludes_list,
+        'includes_list': includes_list
+    })
+
+def restart_transmission(request):
+    try:
+        # Stop Transmission Daemon
+        subprocess.run(["pkill", "transmission-daemon"], check=True)
+
+        # Start Transmission Daemon
+        subprocess.run(["transmission-daemon", "--config-dir", "/root/.config/transmission-daemon"], check=True)
+
+        return JsonResponse({"status": "success", "message": "Transmission Daemon restarted."})
+    except subprocess.CalledProcessError as e:
+        return JsonResponse({"status": "error", "message": str(e)})
