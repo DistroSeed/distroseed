@@ -220,10 +220,11 @@ def tc_settings(request):
             model_instance.save()
             qs = json.dumps(ast.literal_eval(re.sub("_", "-", str(TransmissionSetting.objects.last().values()))))
             transmissionobj = json.loads(qs)
-            subprocess.call(['systemctl', 'stop', 'transmission-daemon'])
-            with open('/etc/transmission-daemon/settings.json', 'wb') as f:
+            # TODO: fix the process to run as a foreground process
+            subprocess.call(['pkill', '-f', 'transmission-daemon'])
+            with open('/etc/transmission-daemon/settings.json', 'w') as f:
                 json.dump(transmissionobj, f, indent=4, sort_keys=True)
-            subprocess.call(['systemctl', 'start', 'transmission-daemon'])
+            subprocess.call(['transmission-daemon', '--log-level=debug', '--config-dir', '/etc/transmission-daemon', '--foreground', '&'])
         return HttpResponseRedirect(reverse('settings'))
             
     current_settings = TransmissionSetting.objects.last()

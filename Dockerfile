@@ -26,7 +26,6 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Copy application files
-RUN mkdir -p /data/torrents/torrents
 RUN mkdir -p /data/torrents/downloads
 RUN mkdir -p /data/torrents/incomplete
 RUN chmod -R 777 /data/

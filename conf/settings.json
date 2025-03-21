@@ -64,6 +64,8 @@
     "speed-limit-up": 1000,
     "speed-limit-up-enabled": true,
     "start-added-torrents": true,
+    "torrentfiles-enabled": true,
+    "torrentfiles-dir": "/data/torrents/torrents",
     "trash-original-torrent-files": false,
     "umask": 18,
     "upload-limit": 100,

@@ -100,6 +100,8 @@ class TransmissionSetting(models.Model):
     speed_limit_up = models.IntegerField(blank=True)
     speed_limit_up_enabled = models.BooleanField()
     start_added_torrents = models.BooleanField()
+    torrentfiles_enabled = models.BooleanField()
+    torrentfiles_dir = models.CharField(max_length=200, blank=True)
     trash_original_torrent_files = models.BooleanField()
     umask = models.IntegerField(blank=True)
     upload_limit = models.IntegerField(blank=True)

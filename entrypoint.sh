@@ -46,6 +46,8 @@ cd /app/distroseed && /app/env/bin/python manage.py shell -c "import json; from 
 echo "Importing Transmission Settings..."
 cd /app/distroseed && /app/env/bin/python manage.py shell -c "import json; from dashboard.models import TransmissionSetting; [TransmissionSetting.objects.get_or_create(**item) for item in json.load(open('/app/default_data_jsons/transmission_settings.json'))]"
 
+# TODO: adding in code to overright the default transmission settings.json with database settings
+
 # Start Django app using Gunicorn
 echo "Starting Django application..."
 cd /app/distroseed && /app/env/bin/gunicorn distroseed.wsgi:application --bind 0.0.0.0:8000 --workers 3
