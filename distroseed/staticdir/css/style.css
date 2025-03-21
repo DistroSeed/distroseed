@@ -39,8 +39,6 @@ table tr th { color: #688a7e;}
 
 #container {
     width: 90%;
-    height: 100%;
-    margin: auto;
 }
 
 .Creative-pro, .Creative-pro h3{
@@ -90,12 +88,13 @@ table tr th { color: #688a7e;}
 
 .login-form {
     max-width: 350px;
-    margin: 200px auto 0;
+    margin: 0 auto 0;
     background: #d5d7de;
+    padding-top: 50px;
 }
 .login-img-body .login-form{
     max-width: 350px;
-    margin: 200px auto 0;
+    margin: 0 auto 0;
     background: rgba(213,215,222,0.4);
     border: 1px solid #B0B6BE;
 }
@@ -136,7 +135,7 @@ table tr th { color: #688a7e;}
     position: relative;
     font-size: 16px;
     height: auto;
-    padding: 10px;
+    padding: 15px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
