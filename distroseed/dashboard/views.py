@@ -74,7 +74,7 @@ def index(request):
         elif 'debian' in name.lower():
             distro = "Debian"
         elif 'mint' in name.lower() or 'lmde' in name.lower():
-            distro = "Linux Mint"
+            distro = "Linux_Mint"
         elif 'tails' in name.lower():
             distro = "Tails"
         elif 'opensuse' in name.lower():
