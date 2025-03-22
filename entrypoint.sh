@@ -26,6 +26,7 @@ sleep 5
 echo "Django migrating..."
 cd /app/distroseed && /app/env/bin/python /app/distroseed/manage.py makemigrations
 cd /app/distroseed && /app/env/bin/python /app/distroseed/manage.py migrate
+cd /app/distroseed && /app/env/bin/python /app/distroseed/manage.py collectstatic --noinput
 
 # Create default superuser if not exists
 echo "from django.contrib.auth import get_user_model; User = get_user_model(); x = not User.objects.filter(username='root').exists(); User.objects.create_superuser('root','root@distroseed.com','distroseed') if x else None" | python manage.py shell
