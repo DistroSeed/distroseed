@@ -79,7 +79,7 @@
                   {% for torrent in torrents %}
                   <tr>
                     <td>
-                      <img src="{% static 'img/icons/' %}{{ torrent.distro|slugify|replace:' ','_'|lower }}-logo.png" 
+                      <img src="{% static 'img/icons/' %}{{ torrent.distro|lower }}-logo.png" 
                            style="height:18px; margin-top:-2px;">
                     </td>
                     <td>{{ torrent.distro }}</td>
