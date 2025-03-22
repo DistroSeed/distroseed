@@ -163,8 +163,11 @@ def logs(request):
 
 def currentdistro(request):
     if request.method == "POST":
-        instance = AutoTorrent.objects.get(id=request.POST['id'])
-        form = AutoTorrentForm(request.POST or None, instance=instance)
+        if 'id' in request.POST.keys():
+            instance = AutoTorrent.objects.get(id=request.POST['id'])
+            form = AutoTorrentForm(request.POST or None, instance=instance)
+        else:
+            form = NewAutoTorrentForm(request.POST)
         if form.is_valid():
             model_instance = form.save(commit=False)
             model_instance.save()
