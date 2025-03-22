@@ -175,7 +175,7 @@ def currentdistro(request):
             link = AutoTorrent.objects.get(id=model_instance.id).url
             exclude_list = AutoTorrent.objects.get(id=model_instance.id).excludes.all().values_list('phrase', flat=True)
             include_list = AutoTorrent.objects.get(id=model_instance.id).includes.all().values_list('phrase', flat=True)
-            response = requests.get(link, verify=False, timeout=30)
+            response = requests.get(link, timeout=30)
             soup = BeautifulSoup(response.text, 'html.parser')
             links = [tag.get("href").strip() for tag in soup.find_all(href=True)]
             sources = [tag.get("src").strip() for tag in soup.find_all(src=True)]
