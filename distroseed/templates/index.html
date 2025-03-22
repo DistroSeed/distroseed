@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load slugify_extras %}
 {% block meta %}
   <meta http-equiv="refresh" content="5">
 {% endblock %}
@@ -78,7 +79,7 @@
                   {% for torrent in torrents %}
                   <tr>
                     <td>
-                      <img src="{% static 'img/icons/' %}{{ torrent.distro|lower }}-logo.png" 
+                      <img src="{% static 'img/icons/' %}{{ torrent.distro|underscore|lower }}-logo.png" 
                            style="height:18px; margin-top:-2px;">
                     </td>
                     <td>{{ torrent.distro }}</td>
