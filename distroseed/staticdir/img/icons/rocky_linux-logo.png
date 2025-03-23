@@ -1,0 +1,6 @@
+--2025-03-23 20:11:01--  https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Rocky_Linux_logo.svg/2048px-Rocky_Linux_logo.svg.png
+Resolving upload.wikimedia.org (upload.wikimedia.org)... 45.54.28.11, 2620:0:861:ed1a::2:b
+Connecting to upload.wikimedia.org (upload.wikimedia.org)|45.54.28.11|:443... connected.
+ERROR: cannot verify upload.wikimedia.org's certificate, issued by ‘CN=DNSFilter Root CA,O=DNSFilter’:
+  Unable to locally verify the issuer's authority.
+To connect to upload.wikimedia.org insecurely, use `--no-check-certificate'.

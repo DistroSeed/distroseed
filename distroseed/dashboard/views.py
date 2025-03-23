@@ -79,6 +79,8 @@ def index(request):
             distro = "Tails"
         elif 'opensuse' in name.lower():
             distro = "OpenSUSE"
+        elif 'rocky' in name.lower():
+            distro = "Rocky Linux"
         # Arch statements
         if 'x86_64' in name.lower():
             arch = 'x64'
