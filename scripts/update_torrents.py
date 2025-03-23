@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append("/app/")
+sys.path.append("/app/distroseed")
 from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'distroseed.settings')
 application = get_wsgi_application()

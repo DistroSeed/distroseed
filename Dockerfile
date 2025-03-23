@@ -44,7 +44,7 @@ COPY scripts/ /app/scripts/
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
 
 # Add cron job
-RUN echo "0 */1 * * * root /app/scripts/update_torrents.sh > /var/log/cron.log 2>&1" > /etc/cron.d/updatetorrents
+RUN echo "*/5 * * * * root /app/scripts/update_torrents.sh > /var/log/cron.log 2>&1" > /etc/cron.d/updatetorrents
 
 # Set permissions and apply cron job
 RUN chmod 0644 /etc/cron.d/updatetorrents && crontab /etc/cron.d/updatetorrents
