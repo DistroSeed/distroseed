@@ -31,6 +31,7 @@ cd scripts
 ./gen_secret_key.sh
 # copy/paste string to .env
 nano .env
+
 ```
 #### NOTE: you can use the transmission built-in or setup yor own by pointing to and existing transmission server
 
