@@ -102,6 +102,10 @@ def index(request):
             arch = 'x64'
         elif '32bit' in name.lower():
             arch = 'x32'
+        elif 'arm64' in name.lower():
+            arch = 'arm64'
+        elif 'arm' in name.lower():
+            arch = 'arm'
         # version grab
         # Regular expression to extract versions
         pattern = r'\d+\.\d+(\.\d+)?'
