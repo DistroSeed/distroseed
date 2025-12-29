@@ -4930,3 +4930,48 @@ span.customSelect.changed {
 .customSelectInner {
     background:url(../img/customSelect-arrow.gif) no-repeat center right;
 }
+
+
+/* Ensure login form does not overflow */
+.login-form {
+    max-width: 360px;
+    margin: 100px auto;
+}
+
+.login-wrap {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Fix input-group overflow */
+.login-wrap .input-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.login-wrap .form-control {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Ensure addon doesn't push input wider than container */
+.login-wrap .input-group-addon {
+    width: 40px;
+    text-align: center;
+}
+
+.login-wrap .btn {
+    background: #1abc9c;          /* or your theme color */
+    border: none;
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.login-wrap .btn:hover,
+.login-wrap .btn:focus {
+    background: #17a589;
+    color: #fff;
+}
