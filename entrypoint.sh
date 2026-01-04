@@ -19,10 +19,18 @@ touch $CONFIG_DIR/settings.json
 echo "Starting Transmission Daemon..."
 transmission-daemon --log-level=debug --config-dir $CONFIG_DIR --foreground &
 
+echo "Waiting for Transmission RPC to become available..."
+until transmission-remote "127.0.0.1:9091" -si >/dev/null 2>&1; do
+  sleep 2
+done
+
+echo "RPC is available. Verifying all torrents..."
+transmission-remote "127.0.0.1:9091" -t all --verify
+
 # Wait for Transmission to be ready
 sleep 5
 
-# migrating 
+# migrating
 echo "Django migrating..."
 cd /app/distroseed && /app/env/bin/python /app/distroseed/manage.py makemigrations
 cd /app/distroseed && /app/env/bin/python /app/distroseed/manage.py migrate
