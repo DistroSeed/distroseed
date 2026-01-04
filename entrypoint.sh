@@ -19,14 +19,6 @@ touch $CONFIG_DIR/settings.json
 echo "Starting Transmission Daemon..."
 transmission-daemon --log-level=debug --config-dir $CONFIG_DIR --foreground &
 
-echo "Waiting for Transmission RPC to become available..."
-until transmission-remote "127.0.0.1:9091" -si >/dev/null 2>&1; do
-  sleep 2
-done
-
-echo "RPC is available. Verifying all torrents..."
-transmission-remote "127.0.0.1:9091" -t all --verify
-
 # Wait for Transmission to be ready
 sleep 5
 
@@ -59,5 +51,7 @@ cd /app/distroseed && /app/env/bin/python manage.py shell -c "import json; from 
 
 # Start Django app using Gunicorn
 echo "Starting Django application..."
-cd /app/distroseed && /app/env/bin/gunicorn distroseed.wsgi:application --bind 0.0.0.0:8000 --workers 3
-# bash
+cd /app/distroseed && /app/env/bin/gunicorn distroseed.wsgi:application --bind 0.0.0.0:8000 --workers 3 &
+
+
+
