@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  distroseed:
+    image: distroseed
+    container_name: distroseed
+    command: bash
+    stdin_open: true
+    tty: true
+    env_file:
+      - .env
+    volumes:
+      - /data/distroseed/distroseed/db:/app/distroseed/db
+      - /mnt/isos:/data/torrents/downloads
+      - /data/distroseed/torrents/torrents:/etc/transmission-daemon/torrents
+    ports:
+      - "8000:8000"
+      - "9091:9091"
+      - "51414:51414"
+      - "51414:51414/udp"
+    restart: unless-stopped
